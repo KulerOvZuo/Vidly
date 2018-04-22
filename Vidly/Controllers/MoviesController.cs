@@ -9,9 +9,15 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int? pageIndex, string sortBy)
         {
-            return RedirectToAction(nameof(this.Random));
+            if (!pageIndex.HasValue)
+                pageIndex = 1;
+
+            if (string.IsNullOrEmpty(sortBy))
+                sortBy = "Name";
+
+            return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         }
 
         // GET: Movies
@@ -23,6 +29,19 @@ namespace Vidly.Controllers
             };
 
             return View(movie);
+        }
+
+        public ActionResult Edit(decimal id)
+        {
+            return Content($"id={id}");
+        }
+
+        [Route("movies/released" +
+            "/{year:regex(\\d{4})}" +
+            "/{month:range(1,12)}")]
+        public ActionResult ByReleaseDate(int year, int month)
+        {
+            return Content($"{year}/{month}");
         }
     }
 }
