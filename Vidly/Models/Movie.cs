@@ -9,5 +9,12 @@ namespace Vidly.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public IList<decimal> CustomerIds { get; set; }
+
+        public Movie()
+        {
+            CustomerIds = new List<decimal>();
+        }        
     }
 }

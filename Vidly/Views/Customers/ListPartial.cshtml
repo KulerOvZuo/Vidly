@@ -1,0 +1,30 @@
+﻿@model IList<Vidly.Models.Customer>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customers</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(linkText: customer.Name,
+                                 actionName: "get",
+                                 controllerName: "customers",
+                                 routeValues: new { id = customer.Id },
+                                 htmlAttributes: null)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No customers</p>
+}

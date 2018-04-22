@@ -4,58 +4,33 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.TestData;
 using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        public ActionResult Index(int? pageIndex, string sortBy)
+        [Route("movies")]
+        public ActionResult List()
         {
-            if (!pageIndex.HasValue)
-                pageIndex = 1;
+            var moviesView = ViewMapper.Map(MoviesData.Movies);
 
-            if (string.IsNullOrEmpty(sortBy))
-                sortBy = "Name";
-
-            return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+            return View(moviesView);
         }
 
-        // GET: Movies
-        public ActionResult Random()
+        [Route("movies/{id}")]
+        public ActionResult Get(int id)
         {
-            var movie = new Movie()
-            {
-                Name = "Shrek"
-            };
+            var movie = MoviesData.Movies.FirstOrDefault(m => m.Id == id);
 
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "Customer 1", Id = 1},
-                new Customer {Name = "Customer 2", Id = 2},
-                new Customer {Name = "Customer 3", Id = 3}
-            };
+            if (movie == null)
+                return HttpNotFound();
 
-            var viewModel = new MovieViewModel()
-            {
-                Movie = movie,
-                Customers = customers
-            };
+            IList<Customer> customers =
+                CustomersData.Customers.Where(c => movie.CustomerIds.Contains(c.Id)).ToList();
 
-            return View(viewModel);
-        }
-
-        public ActionResult Edit(decimal id)
-        {
-            return Content($"id={id}");
-        }
-
-        [Route("movies/released" +
-            "/{year:regex(\\d{4})}" +
-            "/{month:range(1,12)}")]
-        public ActionResult ByReleaseDate(int year, int month)
-        {
-            return Content($"{year}/{month}");
+            return View(ViewMapper.Map(movie, customers));
         }
     }
 }
