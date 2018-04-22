@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -28,7 +29,20 @@ namespace Vidly.Controllers
                 Name = "Shrek"
             };
 
-            return View(movie);
+            var customers = new List<Customer>
+            {
+                new Customer {Name = "Customer 1", Id = 1},
+                new Customer {Name = "Customer 2", Id = 2},
+                new Customer {Name = "Customer 3", Id = 3}
+            };
+
+            var viewModel = new MovieViewModel()
+            {
+                Movie = movie,
+                Customers = customers
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult Edit(decimal id)
