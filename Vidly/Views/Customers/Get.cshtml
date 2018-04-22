@@ -1,0 +1,11 @@
+﻿@model Vidly.ViewModels.CustomerViewModelDetailed
+
+@{
+    ViewBag.Title = "Get";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Customer.Name</h2>
+<br />
+
+@Html.Partial("../Movies/ListPartial", Model.Movies)
