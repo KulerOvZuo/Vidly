@@ -9,6 +9,11 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        public ActionResult Index()
+        {
+            return RedirectToAction(nameof(this.Random));
+        }
+
         // GET: Movies
         public ActionResult Random()
         {
