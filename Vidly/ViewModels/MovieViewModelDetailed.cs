@@ -9,6 +9,6 @@ namespace Vidly.ViewModels
     public class MovieViewModelDetailed
     {
         public Movie Movie { get; set; }
-        public IEnumerable<Customer> Customers { get; set; }
+        public IList<Customer> Customers { get; set; }
     }
 }

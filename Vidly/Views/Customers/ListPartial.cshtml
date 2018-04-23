@@ -1,4 +1,4 @@
-﻿@model IList<Vidly.Models.Customer>
+﻿@model IEnumerable<Vidly.Models.Customer>
 
 @if (Model.Any())
 {
@@ -7,6 +7,7 @@
             <tr>
                 <th>Customers</th>
                 <th>Discount Rate</th>
+                <th>Rented movies</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                           htmlAttributes: null)
                     </td>
                     <td>@customer.MembershipType.DiscountRate %</td>
+                    <td>@customer.Movies.Count</td>
                 </tr>
             }
         </tbody>
