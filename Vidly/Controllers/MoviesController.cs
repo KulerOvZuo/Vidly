@@ -11,6 +11,13 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        private CustomersData customersData;
+
+        public MoviesController()
+        {
+            customersData = new CustomersData();
+        }
+
         [Route("movies")]
         public ActionResult List()
         {
@@ -28,7 +35,7 @@ namespace Vidly.Controllers
                 return HttpNotFound();
 
             IList<Customer> customers =
-                CustomersData.Customers.Where(c => movie.CustomerIds.Contains(c.Id)).ToList();
+                customersData.GetCustomers().Where(c => movie.CustomerIds.Contains(c.Id)).ToList();
 
             return View(ViewMapper.Map(movie, customers));
         }

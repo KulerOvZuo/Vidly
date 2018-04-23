@@ -10,7 +10,6 @@ namespace Vidly.TestData
     {
         public static void Initialize()
         {
-            CustomersData.Initialize();
             MoviesData.Initialize();
 
             MoviesData.Movies[0].CustomerIds.Add(1);

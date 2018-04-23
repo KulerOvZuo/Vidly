@@ -1,23 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Vidly.Models;
 
 namespace Vidly.TestData
 {
-    public static class CustomersData
+    public class CustomersData
     {
-        public static IList<Customer> Customers;
+        private ApplicationDbContext _context;
 
-        public static void Initialize()
+        public CustomersData()
         {
-            Customers = new List<Customer>
-            {
-                new Customer {Id = 1, Name = "John Smith" },
-                new Customer {Id = 2, Name = "Mary Williams"},
-                new Customer {Id = 3, Name = "Eduardo Abbrams"}
-            };
+            this._context = new ApplicationDbContext();
+        }
+
+        public void Dispose()
+        {
+            this._context.Dispose();
+        }
+
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return this._context.Customers
+                .AsNoTracking()
+                .Include(c => c.MembershipType)                
+                .ToList();
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            return this._context.Customers
+                .AsNoTracking()
+                .Include(c => c.MembershipType)
+                .SingleOrDefault(c => c.Id == id);
         }
     }
 }
