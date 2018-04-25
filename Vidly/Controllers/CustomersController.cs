@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vidly.DAO;
 using Vidly.Models;
-using Vidly.TestData;
 using Vidly.ViewModels;
 
 
 namespace Vidly.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : BaseController<CustomerDao>
     {
         [Route("customers")]
         public ActionResult List()
         {
-            var customersView = ViewMapper.Map(CustomersData.Customers);
+            var customersView = ViewMapper.Map(dao.GetDetached());
 
             return View(customersView);
         }
@@ -23,15 +23,12 @@ namespace Vidly.Controllers
         [Route("customers/{id}")]
         public ActionResult Get(int id)
         {
-            var customer = CustomersData.Customers.FirstOrDefault(m => m.Id == id);
+            var customer = dao.GetDetached(id);
 
             if (customer == null)
                 return HttpNotFound();
 
-            IList<Movie> movies =
-                MoviesData.Movies.Where(m => m.CustomerIds.Contains(customer.Id)).ToList();
-
-            return View(ViewMapper.Map(customer, movies));
+            return View(ViewMapper.Map(customer, customer.Movies));
         }
     }
 }

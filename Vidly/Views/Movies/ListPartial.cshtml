@@ -1,4 +1,4 @@
-﻿@model IList<Vidly.Models.Movie>
+﻿@model IEnumerable<Vidly.Models.Movie>
 
 @if (Model.Any())
 {
@@ -6,6 +6,7 @@
         <thead>
             <tr>
                 <th>Movies</th>
+                <th>Rented by</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                              htmlAttributes: null)
                         </i>
                     </td>
+                    <td>@movie.Customers.Count</td>
                 </tr>
             }
         </tbody>
