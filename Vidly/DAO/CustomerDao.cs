@@ -14,7 +14,7 @@ namespace Vidly.DAO
             var ret = DetachedWithIncludes()
                 .ToList();
 
-            return PopulateWithMovies(ret);
+            return ret;
         }
 
         public Customer GetDetached(int id)
@@ -35,20 +35,14 @@ namespace Vidly.DAO
 
         private Customer PopulateWithMovies(Customer customer)
         {
-            return PopulateWithMovies(new List<Customer> { customer }).First();
-        }
+            IList<Movie> movies = this._context.Movies.AsNoTracking()
+                .Include(m => m.Movies2Customers)
+                .ToList();
 
-        private IList<Customer> PopulateWithMovies(IList<Customer> customers)
-        {
-            IList<Movie> movies = this._context.Movies.AsNoTracking().ToList();
+            var movieIds = customer.Movies2Customers.Select(mc => mc.MovieId);
+            customer.Movies = movies.Where(m => movieIds.Contains(m.Id)).ToList();
 
-            foreach (var c in customers)
-            {
-                var movieIds = c.Movies2Customers.Select(mc => mc.MovieId);
-                c.Movies = movies.Where(m => movieIds.Contains(m.Id)).ToList();
-            }
-
-            return customers;
+            return customer;
         }
     }
 }
