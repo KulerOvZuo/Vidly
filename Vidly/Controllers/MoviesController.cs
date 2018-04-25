@@ -26,8 +26,8 @@ namespace Vidly.Controllers
 
             if (movie == null)
                 return HttpNotFound();
-            return null;
-            //return View(ViewMapper.Map(movie, movie.Customers));
+
+            return View(ViewMapper.Map(movie, movie.Customers));
         }
     }
 }

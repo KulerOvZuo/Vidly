@@ -11,32 +11,44 @@ namespace Vidly.DAO
     {
         public IList<Movie> GetDetached()
         {
-            return DetachedWithIncludes()
+            var ret = DetachedWithIncludes()
                 .ToList();
+
+            return PopulateWithCustomers(ret);
         }
 
         public Movie GetDetached(int id)
         {
-            return DetachedWithIncludes()
+            var ret = DetachedWithIncludes()
                 .SingleOrDefault(m => m.Id == id);
+
+            return PopulateWithCustomers(ret);
         }
 
         private IQueryable<Movie> DetachedWithIncludes()
         {
-            return null;
-            //return this._context.Movies
-            //    .AsNoTracking()
-            //    .Include(m => m.Customers)
-            //    .Include(m => m.Customers.Select(c => c.MembershipType))
-            //    ;
+            return this._context.Movies
+                .AsNoTracking()
+                .Include(m => m.Movies2Customers);
         }
 
-        private IEnumerable<Customer> LoadCustomers()
+        private Movie PopulateWithCustomers(Movie movie)
         {
-            return this._context.Customers
-                .AsNoTracking()
-                .Include(c => c.MembershipType)
-                ;
+            return PopulateWithCustomers(new List<Movie> { movie }).First();
+        }
+
+        private IList<Movie> PopulateWithCustomers(IList<Movie> movies)
+        {
+            IList<Customer> customers = this._context.Customers.AsNoTracking()
+                .Include(c => c.MembershipType).ToList();
+
+            foreach (var m in movies)
+            {
+                var customerIds = m.Movies2Customers.Select(mc => mc.CustomerId);
+                m.Customers = customers.Where(c => customerIds.Contains(c.Id)).ToList();
+            }
+
+            return movies;
         }
     }
 }
