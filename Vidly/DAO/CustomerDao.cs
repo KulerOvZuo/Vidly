@@ -23,14 +23,13 @@ namespace Vidly.DAO
 
         private IQueryable<Customer> DetachedWithIncludes()
         {
-            this._context.Configuration.ProxyCreationEnabled = false;
-
-            return this._context.Customers
-                //.AsNoTracking()
-                .Include(c => c.MembershipType)
-                .Include(c => c.Movies)
-                .Include(c => c.Movies.Select(m => m.Customers))
-                ;
+            return null;
+            //return this._context.Customers
+            //    .AsNoTracking()
+            //    .Include(c => c.MembershipType)
+            //    .Include(c => c.Movies)
+            //    .Include(c => c.Movies.Select(m => m.Customers))
+            //    ;
         }
     }
 }

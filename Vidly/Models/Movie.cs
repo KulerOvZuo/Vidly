@@ -8,12 +8,17 @@ namespace Vidly.Models
 {
     public class Movie
     {
+        //public Movie()
+        //{
+        //    this.Customers = new List<Customer>();
+        //}
+
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
 
-        public virtual ICollection<Customer> Customers { get; set; }     
+        public virtual ICollection<Movies2Customers> Movies2Customers { get; set; }     
     }
 }

@@ -23,10 +23,19 @@ namespace Vidly.DAO
 
         private IQueryable<Movie> DetachedWithIncludes()
         {
-            return this._context.Movies
-                //.AsNoTracking()
-                .Include(m => m.Customers)
-                .Include(m => m.Customers.Select(c => c.MembershipType))
+            return null;
+            //return this._context.Movies
+            //    .AsNoTracking()
+            //    .Include(m => m.Customers)
+            //    .Include(m => m.Customers.Select(c => c.MembershipType))
+            //    ;
+        }
+
+        private IEnumerable<Customer> LoadCustomers()
+        {
+            return this._context.Customers
+                .AsNoTracking()
+                .Include(c => c.MembershipType)
                 ;
         }
     }

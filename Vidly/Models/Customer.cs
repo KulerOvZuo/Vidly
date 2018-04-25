@@ -8,6 +8,11 @@ namespace Vidly.Models
 {
     public class Customer
     {
+        //public Customer()
+        //{
+        //    this.Movies = new List<Movie>();
+        //}
+
         public int Id { get; set; }
         [Required]
         [StringLength(255)]
@@ -18,6 +23,6 @@ namespace Vidly.Models
         public MembershipType MembershipType { get; set; }
         public byte MembershipTypeId { get; set; }
 
-        public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Movies2Customers> Movies2Customers { get; set; }
     }
 }

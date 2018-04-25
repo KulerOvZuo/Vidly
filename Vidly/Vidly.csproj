@@ -229,7 +229,12 @@
     <Compile Include="Migrations\201804231958298_AddCustomerToMovieReferance.Designer.cs">
       <DependentUpon>201804231958298_AddCustomerToMovieReferance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804251935135_ChangeMoviesToCustomer.cs" />
+    <Compile Include="Migrations\201804251935135_ChangeMoviesToCustomer.Designer.cs">
+      <DependentUpon>201804251935135_ChangeMoviesToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Movies2Customers.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -347,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804231958298_AddCustomerToMovieReferance.resx">
       <DependentUpon>201804231958298_AddCustomerToMovieReferance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804251935135_ChangeMoviesToCustomer.resx">
+      <DependentUpon>201804251935135_ChangeMoviesToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
