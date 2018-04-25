@@ -11,23 +11,38 @@ namespace Vidly.DAO
     {
         public IList<Movie> GetDetached()
         {
-            return DetachedWithIncludes()
+            var ret = DetachedWithIncludes()
                 .ToList();
+
+            return ret;
         }
 
         public Movie GetDetached(int id)
         {
-            return DetachedWithIncludes()
+            var ret = DetachedWithIncludes()
                 .SingleOrDefault(m => m.Id == id);
+
+            return PopulateWithCustomers(ret);
         }
 
         private IQueryable<Movie> DetachedWithIncludes()
         {
             return this._context.Movies
-                //.AsNoTracking()
-                .Include(m => m.Customers)
-                .Include(m => m.Customers.Select(c => c.MembershipType))
-                ;
+                .AsNoTracking()
+                .Include(m => m.Movies2Customers);
+        }
+
+        private Movie PopulateWithCustomers(Movie movie)
+        {
+            IList<Customer> customers = this._context.Customers.AsNoTracking()
+                .Include(c => c.MembershipType)
+                .Include(m => m.Movies2Customers)
+                .ToList();
+
+            var customerIds = movie.Movies2Customers.Select(mc => mc.CustomerId);
+            movie.Customers = customers.Where(c => customerIds.Contains(c.Id)).ToList();            
+
+            return movie;
         }
     }
 }

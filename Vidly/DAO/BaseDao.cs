@@ -13,14 +13,14 @@ namespace Vidly.DAO
     {
         protected TContext _context;
 
-        public BaseDao()
+        public BaseDao() : this(new TContext())
         {
-            this._context = new TContext();
+
         }
 
         public BaseDao(TContext context)
         {
-            this._context = context;
+            InitializePropertiesContext(context);
         }
 
         public void Dispose()
@@ -34,7 +34,18 @@ namespace Vidly.DAO
                 return;
 
             this._context.Dispose();
-            this._context = new TContext();
+            InitializePropertiesContext(new TContext());
+        }
+
+        private void InitializePropertiesContext(TContext context)
+        {
+            if (context == null)
+                context = new TContext();
+
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.ProxyCreationEnabled = false;
+
+            this._context = context;
         }
     }
 }
