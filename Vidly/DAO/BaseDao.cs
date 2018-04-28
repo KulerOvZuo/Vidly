@@ -23,9 +23,20 @@ namespace Vidly.DAO
             this._context = context;
         }
 
+        private void InitializePropertiesContext(TContext context)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.ProxyCreationEnabled = false;
+        }
+
         public void Dispose()
         {
             this._context?.Dispose();
+        }
+
+        public void SaveChanges()
+        {
+            this._context.SaveChanges();
         }
 
         public void ResetContext()
@@ -37,10 +48,6 @@ namespace Vidly.DAO
             InitializePropertiesContext(new TContext());
         }
 
-        private void InitializePropertiesContext(TContext context)
-        {
-            context.Configuration.LazyLoadingEnabled = false;
-            context.Configuration.ProxyCreationEnabled = false;
-        }
+
     }
 }

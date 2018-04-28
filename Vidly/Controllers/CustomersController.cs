@@ -31,6 +31,7 @@ namespace Vidly.Controllers
             return View(ViewMapper.Map(customer, customer.Movies));
         }
 
+        [Route("customers/new")]
         public ActionResult New()
         {
             IList<MembershipType> membershipTypes = this.dao._context.MembershipTypes.AsNoTracking().ToList();
@@ -44,10 +45,13 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [Route("customers/create")]
         public ActionResult Create(NewCustomerViewModel viewModel)
         {
-            
-            return View();
+            this.dao.Add(viewModel.Customer);
+            this.dao.SaveChanges();
+
+            return RedirectToAction("List", "Customers");
         }
     }
 }
