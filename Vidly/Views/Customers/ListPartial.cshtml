@@ -6,6 +6,7 @@
         <thead>
             <tr>
                 <th>Customers</th>
+                <th>Membership type</th>
                 <th>Discount Rate</th>
                 <th>Rented movies</th>
             </tr>
@@ -13,17 +14,18 @@
         <tbody>
             @foreach (var customer in Model)
             {
-                <tr>
-                    <td>
-                        @Html.ActionLink(linkText: customer.Name,
-                          actionName: "get",
-                          controllerName: "customers",
-                          routeValues: new { id = customer.Id },
-                          htmlAttributes: null)
-                    </td>
-                    <td>@customer.MembershipType.DiscountRate %</td>
-                    <td>@customer.Movies2Customers.Count</td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink(linkText: customer.Name,
+               actionName: "get",
+               controllerName: "customers",
+               routeValues: new { id = customer.Id },
+               htmlAttributes: null)
+                </td>
+                <td>@customer.MembershipType.Name</td>
+                <td>@customer.MembershipType.DiscountRate %</td>
+                <td>@customer.Movies2Customers.Count</td>
+            </tr>
             }
         </tbody>
     </table>
