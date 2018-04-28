@@ -9,6 +9,9 @@ namespace Vidly.DAO
 {
     public class CustomerDao : BaseDao<ApplicationDbContext>
     {
+        public CustomerDao() { }
+        public CustomerDao(ApplicationDbContext context) : base(context) { }
+
         public IList<Customer> GetDetached()
         {
             var ret = DetachedWithIncludes()
@@ -25,7 +28,7 @@ namespace Vidly.DAO
             return PopulateWithMovies(ret);
         }
 
-        private IQueryable<Customer> DetachedWithIncludes()
+        public IQueryable<Customer> DetachedWithIncludes()
         {
             return this._context.Customers
                 .AsNoTracking()
@@ -35,10 +38,11 @@ namespace Vidly.DAO
 
         private Customer PopulateWithMovies(Customer customer)
         {
-            IList<Movie> movies = this._context.Movies.AsNoTracking()
-                .Include(m => m.Movies2Customers)
-                .Include(m => m.GenreType)
-                .ToList();
+            IList<Movie> movies;
+            using (var moviesDao = new MoviesDao(this._context))
+            {
+                movies = moviesDao.DetachedWithIncludes().ToList();
+            }                
 
             var movieIds = customer.Movies2Customers.Select(mc => mc.MovieId);
             customer.Movies = movies.Where(m => movieIds.Contains(m.Id)).ToList();
