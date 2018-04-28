@@ -29,7 +29,8 @@ namespace Vidly.DAO
         {
             return this._context.Movies
                 .AsNoTracking()
-                .Include(m => m.Movies2Customers);
+                .Include(m => m.Movies2Customers)
+                .Include(m => m.GenreType);
         }
 
         private Movie PopulateWithCustomers(Movie movie)

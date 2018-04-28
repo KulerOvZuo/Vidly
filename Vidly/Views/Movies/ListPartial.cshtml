@@ -6,6 +6,8 @@
         <thead>
             <tr>
                 <th>Movies</th>
+                <th>Genre</th>
+                <th>Release date</th>
                 <th>Rented by</th>
             </tr>
         </thead>
@@ -16,12 +18,31 @@
                     <td>
                         <i>
                             @Html.ActionLink(linkText: movie.Name,
-                             actionName: "get",
-                             controllerName: "movies",
-                             routeValues: new { id = movie.Id },
-                             htmlAttributes: null)
+                         actionName: "get",
+                         controllerName: "movies",
+                         routeValues: new { id = movie.Id },
+                         htmlAttributes: null)
                         </i>
                     </td>
+
+                    @if (movie.GenreTypeId.HasValue)
+                    {
+                        <td>@movie.GenreType.Name</td>
+                    }
+                    else
+                    {
+                        <td>[unknown]</td>
+                    }
+
+                    @if (movie.ReleaseDate.HasValue)
+                    {
+                        <td>@movie.ReleaseDate.Value.ToString("yyyy-MM-dd")</td>
+                    }
+                    else
+                    {
+                        <td>[unknown]</td>
+                    }
+
                     <td>@movie.Movies2Customers.Count</td>
                 </tr>
             }

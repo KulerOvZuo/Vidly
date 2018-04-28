@@ -21,6 +21,13 @@ namespace Vidly.Models
         public string Name { get; set; }
 
         public virtual ICollection<Movies2Customers> Movies2Customers { get; set; }
+
+        public virtual GenreType GenreType { get; set; }
+        public Nullable<int> GenreTypeId { get; set; }
+
+        public virtual Nullable<DateTime> ReleaseDate { get; set; }
+        public virtual DateTime DateAdded { get; set; }
+        public virtual int NumberInStock { get; set; }
         #endregion
 
         #region NotMapped

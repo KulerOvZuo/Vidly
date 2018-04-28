@@ -37,6 +37,7 @@ namespace Vidly.DAO
         {
             IList<Movie> movies = this._context.Movies.AsNoTracking()
                 .Include(m => m.Movies2Customers)
+                .Include(m => m.GenreType)
                 .ToList();
 
             var movieIds = customer.Movies2Customers.Select(mc => mc.MovieId);

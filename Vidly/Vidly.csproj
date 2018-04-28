@@ -241,7 +241,16 @@
     <Compile Include="Migrations\201804281218080_AddCustomerBirthDate.Designer.cs">
       <DependentUpon>201804281218080_AddCustomerBirthDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804281228388_AddGenreTypes.cs" />
+    <Compile Include="Migrations\201804281228388_AddGenreTypes.Designer.cs">
+      <DependentUpon>201804281228388_AddGenreTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804281239212_AddNewColumnsToMovie.cs" />
+    <Compile Include="Migrations\201804281239212_AddNewColumnsToMovie.Designer.cs">
+      <DependentUpon>201804281239212_AddNewColumnsToMovie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\GenreType.cs" />
     <Compile Include="Models\Movies2Customers.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -369,6 +378,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804281218080_AddCustomerBirthDate.resx">
       <DependentUpon>201804281218080_AddCustomerBirthDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804281228388_AddGenreTypes.resx">
+      <DependentUpon>201804281228388_AddGenreTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804281239212_AddNewColumnsToMovie.resx">
+      <DependentUpon>201804281239212_AddNewColumnsToMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

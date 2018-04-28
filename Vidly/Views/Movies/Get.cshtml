@@ -6,7 +6,18 @@
 }
 
 <h2><i>@Model.Movie.Name</i></h2>
-<br/>
+<ul>
+    @if (@Model.Movie.GenreTypeId.HasValue)
+    {
+        <li>Genre: @Model.Movie.GenreType.Name</li>
+    }
+    @if (@Model.Movie.ReleaseDate.HasValue)
+    {
+        <li>Release Date: @Model.Movie.ReleaseDate.Value.ToString("dddd, d MMMM yyyy")</li>
+    }
+    <li>Date Added: @Model.Movie.DateAdded.ToString("dddd, d MMMM yyyy")</li>
+    <li>Numer In Stock: @Model.Movie.NumberInStock</li>
+</ul>
 
 @Html.Partial("../Customers/ListPartial", Model.Customers)
 
