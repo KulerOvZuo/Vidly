@@ -7,12 +7,12 @@ using Vidly.Models;
 
 namespace Vidly.DAO
 {
-    public class CustomerDao : BaseDao<ApplicationDbContext>
+    public class CustomerDao : ExBaseDao<Customer>
     {
         public CustomerDao() { }
         public CustomerDao(ApplicationDbContext context) : base(context) { }
 
-        public IList<Customer> GetDetached()
+        public override IList<Customer> GetDetached()
         {
             var ret = DetachedWithIncludes()
                 .ToList();
@@ -20,7 +20,7 @@ namespace Vidly.DAO
             return ret;
         }
 
-        public Customer GetDetached(int id)
+        public override Customer GetDetached(int id)
         {
             var ret = DetachedWithIncludes()
                 .SingleOrDefault(c => c.Id == id);

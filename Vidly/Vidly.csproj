@@ -195,6 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="DAO\ExBaseDao.cs" />
     <Compile Include="DAO\MoviesDao.cs" />
     <Compile Include="DAO\CustomerDao.cs" />
     <Compile Include="DAO\BaseDao.cs" />

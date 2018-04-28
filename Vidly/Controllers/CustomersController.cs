@@ -46,7 +46,7 @@ namespace Vidly.Controllers
         [HttpPost]
         public ActionResult Create(NewCustomerViewModel viewModel)
         {
-            this.dao.
+            
             return View();
         }
     }

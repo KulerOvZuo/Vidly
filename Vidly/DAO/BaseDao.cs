@@ -8,7 +8,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.DAO
 {
-    public class BaseDao<TContext> : IDisposable
+    public abstract class BaseDao<TContext> : IDisposable
         where TContext : ApplicationDbContext, new()
     {
         public TContext _context { get; protected set; }
