@@ -18,13 +18,21 @@ namespace Vidly.Models
         #region DB mapped
         public int Id { get; set; }
 
-        [Required][StringLength(255)]
+        [Required]
+        [StringLength(255)]
         public string Name { get; set; }
+
+        [Display(Name = "Subscribed to Newsletter?")]
         public bool IsSubscribedToNewsletter { get; set; }
+
+        [Display(Name = "Date of birth")]
+        [DataType(DataType.Date)]
         public Nullable<DateTime> BirthDate { get; set; }
+        
+        [Display(Name = "Membership type")]
+        public byte MembershipTypeId { get; set; }
 
         public MembershipType MembershipType { get; set; }
-        public byte MembershipTypeId { get; set; }
 
         public virtual ICollection<Movies2Customers> Movies2Customers { get; set; }
         #endregion

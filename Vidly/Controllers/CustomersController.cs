@@ -30,5 +30,24 @@ namespace Vidly.Controllers
 
             return View(ViewMapper.Map(customer, customer.Movies));
         }
+
+        public ActionResult New()
+        {
+            IList<MembershipType> membershipTypes = this.dao._context.MembershipTypes.AsNoTracking().ToList();
+
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(NewCustomerViewModel viewModel)
+        {
+            this.dao.
+            return View();
+        }
     }
 }

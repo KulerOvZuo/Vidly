@@ -11,7 +11,7 @@ namespace Vidly.DAO
     public class BaseDao<TContext> : IDisposable
         where TContext : ApplicationDbContext, new()
     {
-        protected TContext _context;
+        public TContext _context { get; protected set; }
 
         public BaseDao() : this(new TContext())
         {
