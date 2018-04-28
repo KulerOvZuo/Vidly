@@ -14,37 +14,21 @@
         <tbody>
             @foreach (var movie in Model)
             {
-                <tr>
-                    <td>
-                        <i>
-                            @Html.ActionLink(linkText: movie.Name,
-                         actionName: "get",
-                         controllerName: "movies",
-                         routeValues: new { id = movie.Id },
-                         htmlAttributes: null)
-                        </i>
-                    </td>
+            <tr>
+                <td>
+                    <i>
+                        @Html.ActionLink(linkText: movie.Name,
+              actionName: "get",
+              controllerName: "movies",
+              routeValues: new { id = movie.Id },
+              htmlAttributes: null)
+                    </i>
+                </td>
 
-                    @if (movie.GenreTypeId.HasValue)
-                    {
-                        <td>@movie.GenreType.Name</td>
-                    }
-                    else
-                    {
-                        <td>[unknown]</td>
-                    }
-
-                    @if (movie.ReleaseDate.HasValue)
-                    {
-                        <td>@movie.ReleaseDate.Value.ToString("yyyy-MM-dd")</td>
-                    }
-                    else
-                    {
-                        <td>[unknown]</td>
-                    }
-
-                    <td>@movie.Movies2Customers.Count</td>
-                </tr>
+                <td>@movie.GetGenreTypeName()</td>
+                <td>@movie.GetReleaseDateToString()</td>
+                <td>@movie.Movies2Customers.Count</td>
+            </tr>
             }
         </tbody>
     </table>

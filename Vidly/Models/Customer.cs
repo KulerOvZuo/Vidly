@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Vidly.Utils.Extentions;
 
 namespace Vidly.Models
 {
@@ -31,6 +32,12 @@ namespace Vidly.Models
         #region NotMapped
         [NotMapped]
         public IList<Movie> Movies { get; set; }
+
+        public string GetBirthDateToString()
+        {
+            return BirthDate.ToStringStandard() ?? "<unknown>";
+        }
+
         #endregion
     }
 }

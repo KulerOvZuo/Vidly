@@ -1,4 +1,5 @@
-﻿@model Vidly.ViewModels.MovieViewModelDetailed
+﻿@using Vidly.Utils.Extentions;
+@model Vidly.ViewModels.MovieViewModelDetailed
 
 @{
     ViewBag.Title = "Get";
@@ -9,13 +10,15 @@
 <ul>
     @if (@Model.Movie.GenreTypeId.HasValue)
     {
-        <li>Genre: @Model.Movie.GenreType.Name</li>
+        <li>Genre: @Model.Movie.GetGenreTypeName()</li>
     }
+
     @if (@Model.Movie.ReleaseDate.HasValue)
     {
-        <li>Release Date: @Model.Movie.ReleaseDate.Value.ToString("dddd, d MMMM yyyy")</li>
+        <li>Release Date: @Model.Movie.GetReleaseDateToString()</li>
     }
-    <li>Date Added: @Model.Movie.DateAdded.ToString("dddd, d MMMM yyyy")</li>
+
+    <li>Date Added: @Model.Movie.DateAdded.ToStringStandard()</li>
     <li>Numer In Stock: @Model.Movie.NumberInStock</li>
 </ul>
 

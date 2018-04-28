@@ -1,4 +1,5 @@
-﻿@model Vidly.ViewModels.CustomerViewModelDetailed
+﻿@using Vidly.Utils.Extentions;
+@model Vidly.ViewModels.CustomerViewModelDetailed
 
 @{
     ViewBag.Title = "Get";
@@ -10,7 +11,7 @@
     <li>Membership Type: @Model.Customer.MembershipType.Name</li>
     @if (@Model.Customer.BirthDate.HasValue)
     {
-        <li>Birthdate: @Model.Customer.BirthDate.Value.ToString("yyyy-MM-dd")</li>
+        <li>Birthdate: @Model.Customer.BirthDate.ToStringStandard()</li>
     }
 </ul>
 

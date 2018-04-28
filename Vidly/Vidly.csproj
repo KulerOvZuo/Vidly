@@ -252,6 +252,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GenreType.cs" />
     <Compile Include="Models\Movies2Customers.cs" />
+    <Compile Include="Utils\Extentions\DatetimeExtentions.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
