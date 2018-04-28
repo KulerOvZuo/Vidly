@@ -20,7 +20,7 @@ namespace Vidly.Controllers
             return View(customersView);
         }
 
-        [Route("customers/{id}")]
+        [Route("customers/details/{id}")]
         public ActionResult Get(int id)
         {
             var customer = dao.GetDetached(id);
