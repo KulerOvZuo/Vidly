@@ -20,7 +20,7 @@ namespace Vidly.Controllers
         }
 
         [Route("movies/details/{id}")]
-        public ActionResult Get(int id)
+        public ActionResult Details(int id)
         {
             var movie = this.dao.GetDetached(id);
 

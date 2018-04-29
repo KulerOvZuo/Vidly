@@ -27,5 +27,10 @@ namespace Vidly.ViewModels
         {
             return new CustomerViewModelDetailed { Customer = customer, Movies = movies.ToList() };
         }
+
+        public static CustomerFormViewModel Map(Customer customer, IEnumerable<MembershipType> membershipTypes)
+        {
+            return new CustomerFormViewModel { Customer = customer, MembershipTypes = membershipTypes.ToList() };
+        }
     }
 }

@@ -266,7 +266,7 @@
     <Compile Include="ViewModels\CustomerViewModelDetailed.cs" />
     <Compile Include="ViewModels\MovieViewModelDetailed.cs" />
     <Compile Include="ViewModels\MoviesViewModel.cs" />
-    <Compile Include="ViewModels\NewCustomerViewModel.cs" />
+    <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\ViewMapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -329,12 +329,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Movies\List.cshtml" />
-    <Content Include="Views\Movies\Get.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Customers\List.cshtml" />
-    <Content Include="Views\Customers\Get.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\ListPartial.cshtml" />
     <Content Include="Views\Movies\ListPartial.cshtml" />
-    <Content Include="Views\Customers\New.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

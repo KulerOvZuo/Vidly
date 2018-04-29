@@ -14,35 +14,44 @@ namespace Vidly.DAO
 
         public override IList<Customer> GetDetached()
         {
-            var ret = DetachedWithIncludes()
+            var ret = GetWithIncludes(true)
                 .ToList();
 
             return ret;
         }
 
-        public override Customer GetDetached(int id)
+        public override Customer Get(int id)
         {
-            var ret = DetachedWithIncludes()
+            var ret = GetWithIncludes(false)
                 .SingleOrDefault(c => c.Id == id);
 
             return PopulateWithMovies(ret);
         }
 
-        public IQueryable<Customer> DetachedWithIncludes()
+        public override Customer GetDetached(int id)
         {
-            return this._context.Customers
-                .AsNoTracking()
+            var ret = GetWithIncludes(true)
+                .SingleOrDefault(c => c.Id == id);
+
+            return PopulateWithMovies(ret);
+        }
+
+        public IQueryable<Customer> GetWithIncludes(bool asNoTracking = false)
+        {
+            var query = this._context.Customers.AsQueryable();
+
+            if (asNoTracking)
+                query = query.AsNoTracking();
+
+            return query
                 .Include(c => c.MembershipType)
                 .Include(c => c.Movies2Customers);
         }
 
         private Customer PopulateWithMovies(Customer customer)
         {
-            IList<Movie> movies;
-            using (var moviesDao = new MoviesDao(this._context))
-            {
-                movies = moviesDao.DetachedWithIncludes().ToList();
-            }                
+            var moviesDao = new MoviesDao(this.Context);
+            IList<Movie> movies = moviesDao.GetWithIncludes(true).ToList();
 
             var movieIds = customer.Movies2Customers.Select(mc => mc.MovieId);
             customer.Movies = movies.Where(m => movieIds.Contains(m.Id)).ToList();

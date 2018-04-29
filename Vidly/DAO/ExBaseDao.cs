@@ -16,10 +16,11 @@ namespace Vidly.DAO
 
         public abstract IList<TEntity> GetDetached();
         public abstract TEntity GetDetached(int id);
+        public abstract TEntity Get(int id);
 
         public virtual void Add(TEntity entity)
         {
-            this._context.Set<TEntity>().Add(entity);
+            DbSet<TEntity>().Add(entity);
         }
     }
 }

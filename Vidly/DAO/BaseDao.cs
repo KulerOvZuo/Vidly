@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,7 +12,7 @@ namespace Vidly.DAO
     public abstract class BaseDao<TContext> : IDisposable
         where TContext : ApplicationDbContext, new()
     {
-        public TContext _context { get; protected set; }
+        protected TContext _context;
 
         public BaseDao() : this(new TContext())
         {
@@ -21,6 +22,11 @@ namespace Vidly.DAO
         public BaseDao(TContext context)
         {
             this._context = context;
+        }
+
+        public TContext Context
+        {
+            get => this._context;
         }
 
         private void InitializePropertiesContext(TContext context)
@@ -45,9 +51,19 @@ namespace Vidly.DAO
                 return;
 
             this._context.Dispose();
-            InitializePropertiesContext(new TContext());
+
+            this._context = new TContext();
+            InitializePropertiesContext(this._context);
+        }
+        
+        public DbSet<TEntity> DbSet<TEntity>() where TEntity : class, new()
+        {
+            return this._context.Set<TEntity>();
         }
 
-
+        public IList<TEntity> GetDetached<TEntity>() where TEntity : class, new()
+        {
+            return this._context.Set<TEntity>().AsNoTracking().ToList();
+        }
     }
 }

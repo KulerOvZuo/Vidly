@@ -21,7 +21,7 @@ namespace Vidly.Controllers
         }
 
         [Route("customers/details/{id}")]
-        public ActionResult Get(int id)
+        public ActionResult Details(int id)
         {
             var customer = dao.GetDetached(id);
 
@@ -34,24 +34,32 @@ namespace Vidly.Controllers
         [Route("customers/new")]
         public ActionResult New()
         {
-            IList<MembershipType> membershipTypes = this.dao._context.MembershipTypes.AsNoTracking().ToList();
+            var viewModel = ViewMapper.Map(null, this.dao.GetDetached<MembershipType>());
 
-            var viewModel = new NewCustomerViewModel
-            {
-                MembershipTypes = membershipTypes
-            };
-
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
-        [Route("customers/create")]
-        public ActionResult Create(NewCustomerViewModel viewModel)
+        [Route("customers/save")]
+        public ActionResult Save(CustomerFormViewModel viewModel)
         {
             this.dao.Add(viewModel.Customer);
             this.dao.SaveChanges();
 
             return RedirectToAction("List", "Customers");
+        }
+
+        [Route("customers/edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var customer = this.dao.GetDetached(id);
+
+            if (customer == null)
+                return HttpNotFound();
+
+            var viewModel = ViewMapper.Map(customer, this.dao.GetDetached<MembershipType>());
+
+            return View("CustomerForm", viewModel);
         }
     }
 }
