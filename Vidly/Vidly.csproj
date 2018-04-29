@@ -195,6 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="DAO\ExBaseDao.cs" />
     <Compile Include="DAO\MoviesDao.cs" />
     <Compile Include="DAO\CustomerDao.cs" />
     <Compile Include="DAO\BaseDao.cs" />
@@ -263,8 +264,10 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomersViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModelDetailed.cs" />
+    <Compile Include="ViewModels\MovieModelViewForm.cs" />
     <Compile Include="ViewModels\MovieViewModelDetailed.cs" />
     <Compile Include="ViewModels\MoviesViewModel.cs" />
+    <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\ViewMapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -327,11 +330,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Movies\List.cshtml" />
-    <Content Include="Views\Movies\Get.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Customers\List.cshtml" />
-    <Content Include="Views\Customers\Get.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\ListPartial.cshtml" />
     <Content Include="Views\Movies\ListPartial.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
+    <Content Include="Views\Movies\MovieForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

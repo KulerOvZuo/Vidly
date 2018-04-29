@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,7 +10,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.DAO
 {
-    public class BaseDao<TContext> : IDisposable
+    public abstract class BaseDao<TContext> : IDisposable
         where TContext : ApplicationDbContext, new()
     {
         protected TContext _context;
@@ -23,9 +25,39 @@ namespace Vidly.DAO
             this._context = context;
         }
 
+        public TContext Context
+        {
+            get => this._context;
+        }
+
+        private void InitializePropertiesContext(TContext context)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.ProxyCreationEnabled = false;
+        }
+
         public void Dispose()
         {
             this._context?.Dispose();
+        }
+
+        public void SaveChanges()
+        {
+            try
+            {
+                this._context.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                var errors = ex.EntityValidationErrors.SelectMany(e => e.ValidationErrors.Select(v => $"{v.PropertyName} : {v.ErrorMessage}"));
+                throw new DbEntityValidationException(
+                    string.Join(", ", errors),
+                    ex);
+            }
+            catch(Exception e)
+            {
+                throw;
+            }           
         }
 
         public void ResetContext()
@@ -34,13 +66,19 @@ namespace Vidly.DAO
                 return;
 
             this._context.Dispose();
-            InitializePropertiesContext(new TContext());
+
+            this._context = new TContext();
+            InitializePropertiesContext(this._context);
+        }
+        
+        public DbSet<TEntity> DbSet<TEntity>() where TEntity : class, new()
+        {
+            return this._context.Set<TEntity>();
         }
 
-        private void InitializePropertiesContext(TContext context)
+        public IList<TEntity> GetDetached<TEntity>() where TEntity : class, new()
         {
-            context.Configuration.LazyLoadingEnabled = false;
-            context.Configuration.ProxyCreationEnabled = false;
+            return this._context.Set<TEntity>().AsNoTracking().ToList();
         }
     }
 }

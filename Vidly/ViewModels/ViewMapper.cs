@@ -18,6 +18,11 @@ namespace Vidly.ViewModels
             return new MovieViewModelDetailed { Movie = movie, Customers = customers.ToList() };
         }
 
+        public static MovieModelViewForm Map(Movie movie, IEnumerable<GenreType> genreTypes)
+        {
+            return new MovieModelViewForm { Movie = movie, GenreTypes = genreTypes.ToList() };
+        }
+
         public static CustomersViewModel Map(IEnumerable<Customer> customers)
         {
             return new CustomersViewModel { Customers = customers.ToList() };
@@ -26,6 +31,11 @@ namespace Vidly.ViewModels
         public static CustomerViewModelDetailed Map(Customer customer, IEnumerable<Movie> movies)
         {
             return new CustomerViewModelDetailed { Customer = customer, Movies = movies.ToList() };
+        }
+
+        public static CustomerFormViewModel Map(Customer customer, IEnumerable<MembershipType> membershipTypes)
+        {
+            return new CustomerFormViewModel { Customer = customer, MembershipTypes = membershipTypes.ToList() };
         }
     }
 }

@@ -4,6 +4,11 @@
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.ActionLink(linkText: "Add new",
+               actionName: "new",
+               controllerName: "movies",
+               routeValues: null,
+               htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
 
 @Html.Partial("ListPartial", Model.Movies)
 

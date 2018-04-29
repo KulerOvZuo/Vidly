@@ -2,11 +2,12 @@
 @model Vidly.ViewModels.CustomerViewModelDetailed
 
 @{
-    ViewBag.Title = "Get";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@Model.Customer.Name</h2>
+
 <ul>
     <li>Membership Type: @Model.Customer.MembershipType.Name</li>
     @if (@Model.Customer.BirthDate.HasValue)
@@ -15,4 +16,10 @@
     }
 </ul>
 
+@Html.ActionLink(linkText: "Edit",
+               actionName: "edit",
+               controllerName: "customers",
+               routeValues: new { Id = @Model.Customer.Id },
+
+               htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
 @Html.Partial("../Movies/ListPartial", Model.Movies)

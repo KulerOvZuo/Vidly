@@ -2,7 +2,7 @@
 @model Vidly.ViewModels.MovieViewModelDetailed
 
 @{
-    ViewBag.Title = "Get";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -21,6 +21,12 @@
     <li>Date Added: @Model.Movie.DateAdded.ToStringStandard()</li>
     <li>Numer In Stock: @Model.Movie.NumberInStock</li>
 </ul>
+
+@Html.ActionLink(linkText: "Edit",
+               actionName: "edit",
+               controllerName: "movies",
+               routeValues: null,
+               htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
 
 @Html.Partial("../Customers/ListPartial", Model.Customers)
 
