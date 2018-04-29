@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -42,7 +43,21 @@ namespace Vidly.DAO
 
         public void SaveChanges()
         {
-            this._context.SaveChanges();
+            try
+            {
+                this._context.SaveChanges();
+            }
+            catch(DbEntityValidationException ex)
+            {
+                var errors = ex.EntityValidationErrors.SelectMany(e => e.ValidationErrors.Select(v => $"{v.PropertyName} : {v.ErrorMessage}"));
+                throw new DbEntityValidationException(
+                    string.Join(", ", errors),
+                    ex);
+            }
+            catch(Exception e)
+            {
+                throw;
+            }           
         }
 
         public void ResetContext()
