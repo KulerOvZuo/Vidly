@@ -24,11 +24,16 @@ namespace Vidly.Models
 
         public virtual ICollection<Movies2Customers> Movies2Customers { get; set; }
 
-        public virtual GenreType GenreType { get; set; }
+        [Display(Name = "Genre")]
         public Nullable<int> GenreTypeId { get; set; }
+        public virtual GenreType GenreType { get; set; }
 
+        [Display(Name = "Release date")]
         public virtual Nullable<DateTime> ReleaseDate { get; set; }
+
         public virtual DateTime DateAdded { get; set; }
+
+        [Display(Name = "Number in stock")]
         public virtual int NumberInStock { get; set; }
         #endregion
 

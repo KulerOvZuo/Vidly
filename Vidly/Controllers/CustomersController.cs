@@ -47,7 +47,7 @@ namespace Vidly.Controllers
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
             var customer = viewModel.Customer;
-            if(customer.Id == 0)
+            if(customer.Id <= 0)
                 this.dao.Add(customer);
             else
             {
@@ -61,7 +61,7 @@ namespace Vidly.Controllers
 
             this.dao.SaveChanges();
 
-            return RedirectToAction("List", "Customers");
+            return RedirectToAction("list", "customers");
         }
 
         [HttpGet]

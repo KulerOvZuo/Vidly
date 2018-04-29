@@ -8,8 +8,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h2>New Customer</h2>
+@if (Model.Customer.Id <= 0)
+{
+    <h2>New Customer</h2>
+}
+else
+{
+    <h2>Edit Customer</h2>
+}
 
 @using (Html.BeginForm("Save", "Customers"))
 {
@@ -22,8 +28,8 @@
         @Html.LabelFor(m => m.Customer.BirthDate)
         <div>
             @Html.TextBoxFor(m => m.Customer.BirthDate,
-                              Model.Customer.BirthDate.ToStringStandard(),
-                              new { @class = "form-control" })
+                                        Model.Customer.BirthDate.ToStringStandard(),
+                                        new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Customer.BirthDate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -31,9 +37,9 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.MembershipTypeId)
         @Html.DropDownListFor(m => m.Customer.MembershipTypeId,
-                              new SelectList(Model.MembershipTypes, "Id", "Name"),
-                              "[select]",
-                              new { @class = "form-control" })
+                                        new SelectList(Model.MembershipTypes, "Id", "Name"),
+                                        "[select]",
+                                        new { @class = "form-control" })
     </div>
 
     <div class="checkbox">
