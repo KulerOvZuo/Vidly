@@ -11,6 +11,7 @@ namespace Vidly.Controllers
 {
     public class MoviesController : BaseController<MoviesDao>
     {
+        [HttpGet]
         [Route("movies")]
         public ActionResult List()
         {
@@ -19,6 +20,7 @@ namespace Vidly.Controllers
             return View(moviesView);
         }
 
+        [HttpGet]
         [Route("movies/details/{id}")]
         public ActionResult Details(int id)
         {

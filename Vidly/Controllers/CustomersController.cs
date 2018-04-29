@@ -12,6 +12,7 @@ namespace Vidly.Controllers
 {
     public class CustomersController : BaseController<CustomerDao>
     {
+        [HttpGet]
         [Route("customers")]
         public ActionResult List()
         {
@@ -20,6 +21,7 @@ namespace Vidly.Controllers
             return View(customersView);
         }
 
+        [HttpGet]
         [Route("customers/details/{id}")]
         public ActionResult Details(int id)
         {
@@ -31,10 +33,11 @@ namespace Vidly.Controllers
             return View(ViewMapper.Map(customer, customer.Movies));
         }
 
+        [HttpGet]
         [Route("customers/new")]
         public ActionResult New()
         {
-            var viewModel = ViewMapper.Map(null, this.dao.GetDetached<MembershipType>());
+            var viewModel = ViewMapper.Map(new Customer(), this.dao.GetDetached<MembershipType>());
 
             return View("CustomerForm", viewModel);
         }
@@ -43,12 +46,25 @@ namespace Vidly.Controllers
         [Route("customers/save")]
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
-            this.dao.Add(viewModel.Customer);
+            var customer = viewModel.Customer;
+            if(customer.Id == 0)
+                this.dao.Add(customer);
+            else
+            {
+                var customerInDB = this.dao.Get(customer.Id);
+
+                customerInDB.Name = customer.Name;
+                customerInDB.BirthDate = customer.BirthDate;
+                customerInDB.MembershipTypeId = customer.MembershipTypeId;
+                customerInDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            }
+
             this.dao.SaveChanges();
 
             return RedirectToAction("List", "Customers");
         }
 
+        [HttpGet]
         [Route("customers/edit/{id}")]
         public ActionResult Edit(int id)
         {
