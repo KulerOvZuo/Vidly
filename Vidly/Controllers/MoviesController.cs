@@ -42,6 +42,7 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("movies/save")]
         public ActionResult Save(MovieModelViewForm viewModel)
         {

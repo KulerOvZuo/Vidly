@@ -28,17 +28,17 @@ else
         @Html.LabelFor(m => m.Movie.ReleaseDate)
         <div>
             @Html.TextBoxFor(m => m.Movie.ReleaseDate,
-                Model.Movie.ReleaseDate.ToStringStandard(),
-                new { @class = "form-control" })
+                          Model.Movie.ReleaseDate.ToStringStandard(),
+                          new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.GenreTypeId)
         @Html.DropDownListFor(m => m.Movie.GenreTypeId,
-            new SelectList(Model.GenreTypes, "Id", "Name"),
-            "[select]",
-            new { @class = "form-control" })
+                      new SelectList(Model.GenreTypes, "Id", "Name"),
+                      "[select]",
+                      new { @class = "form-control" })
     </div>
 
     <div>
@@ -48,6 +48,12 @@ else
     </div>
 
     @Html.HiddenFor(m => m.Movie.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 }
 
