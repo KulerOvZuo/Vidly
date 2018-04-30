@@ -34,6 +34,7 @@ namespace Vidly.Models
         public virtual DateTime DateAdded { get; set; }
 
         [Display(Name = "Number in stock")]
+        [Range(0,100)]
         public virtual int NumberInStock { get; set; }
         #endregion
 

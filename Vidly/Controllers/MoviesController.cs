@@ -42,9 +42,16 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("movies/save")]
         public ActionResult Save(MovieModelViewForm viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                var retViewModel = ViewMapper.Map(viewModel.Movie, this.dao.GetDetached<GenreType>());
+                return View("MovieForm", retViewModel);
+            }
+
             var movie = viewModel.Movie;
             if (movie.Id <= 0)
             {
