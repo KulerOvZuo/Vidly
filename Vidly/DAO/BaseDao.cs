@@ -54,7 +54,7 @@ namespace Vidly.DAO
                     string.Join(", ", errors),
                     ex);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 throw;
             }           

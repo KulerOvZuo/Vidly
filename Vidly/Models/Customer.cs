@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using Vidly.Utils.Extentions;
+using Vidly.Utils.Validation;
 
 namespace Vidly.Models
 {
@@ -18,7 +19,7 @@ namespace Vidly.Models
         #region DB mapped
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter customer's 'name'.")]
         [StringLength(255)]
         public string Name { get; set; }
 
@@ -27,6 +28,7 @@ namespace Vidly.Models
 
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
+        [Min18YearsIfAMember]
         public Nullable<DateTime> BirthDate { get; set; }
         
         [Display(Name = "Membership type")]

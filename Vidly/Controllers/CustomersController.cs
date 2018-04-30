@@ -43,10 +43,19 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("customers/save")]
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
             var customer = viewModel.Customer;
+
+            if (!ModelState.IsValid)
+            {
+                var returnViewModel = ViewMapper.Map(customer, this.dao.GetDetached<MembershipType>());
+                return View("CustomerForm", returnViewModel);
+            }
+
+           
             if(customer.Id <= 0)
                 this.dao.Add(customer);
             else
