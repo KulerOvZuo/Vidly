@@ -4,29 +4,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Vidly.DAO;
 using Vidly.Models;
 
 namespace Vidly.Controllers.API
 {
-    public class CustomersController : ApiController
+    public class CustomersController : BaseApiController<CustomerDao>
     {
-        private ApplicationDbContext _context;
-
-        public CustomersController()
-        {
-            this._context = new ApplicationDbContext();
-        }
-
         // GET /api/customers
+        [HttpGet]
         public IEnumerable<Customer> GetCustomers()
         {
-            return _context.Customers.ToList();
+            return this.dao.GetDetached();
         }
 
         // GET /api/customers/1
+        [HttpGet]
         public Customer GetCustomer(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = this.dao.GetDetached(id);
 
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -41,8 +37,8 @@ namespace Vidly.Controllers.API
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            this.dao.Add(customer);
+            this.dao.SaveChanges();
 
             return customer;
         }
@@ -54,7 +50,7 @@ namespace Vidly.Controllers.API
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            var customerinDB = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerinDB = this.dao.Get(id);
 
             if (customerinDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -64,21 +60,20 @@ namespace Vidly.Controllers.API
             customerinDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
             customerinDB.MembershipTypeId = customer.MembershipTypeId;
 
-            _context.SaveChanges();
+            this.dao.SaveChanges();
         }
 
         //DELETE /api/customers/1
         [HttpDelete]
         public void DeleteCustomer(int id)
         {
-
-            var customerinDB = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerinDB = this.dao.GetDetached(id);
 
             if (customerinDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            _context.Customers.Remove(customerinDB);
-            _context.SaveChanges();
+            this.dao.Remove(customerinDB);
+            this.dao.SaveChanges();
         }
     }
 }
