@@ -15,66 +15,74 @@ namespace Vidly.Controllers.API
     {
         [HttpGet]
         [Route("api/customers")]
-        public IEnumerable<CustomerDTO> GetCustomers()
+        public IHttpActionResult GetCustomers()
         {
             this.dao.Context.Configuration.ProxyCreationEnabled = false;
-            return this.dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
+            var customers = this.dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
+
+            return Ok(customers);
         }
 
         [HttpGet]
         [Route("api/customers/{id}")]
-        public CustomerDTO GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer = this.dao.GetDetached(id);
 
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return Mapper.Map<Customer, CustomerDTO>(customer);
+            return Ok(Mapper.Map<Customer, CustomerDTO>(customer));
         }
 
         [HttpPost]
         [Route("api/customers")]
-        public CustomerDTO CreateCustomer(CustomerDTO customerDto)
+        public IHttpActionResult CreateCustomer(CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var customer = Mapper.Map<CustomerDTO, Customer>(customerDto);
             this.dao.Add(customer);
             this.dao.SaveChanges();
 
             customer = this.dao.GetDetached(customer.Id);
-            return Mapper.Map<Customer, CustomerDTO>(customer);
+
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id), 
+                Mapper.Map<Customer, CustomerDTO>(customer));
         }
 
         [HttpPut]
         [Route("api/customers/{id}")]
-        public void UpdateCustomer(int id, CustomerDTO customerDto)
+        public IHttpActionResult UpdateCustomer(int id, CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var customerinDB = this.dao.Get(id);
 
             if (customerinDB == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             Mapper.Map<CustomerDTO, Customer>(customerDto, customerinDB);
             this.dao.SaveChanges();
+
+            return Ok();
         }
 
         [HttpDelete]
         [Route("api/customers/{id}")]
-        public void DeleteCustomer(int id)
+        public IHttpActionResult DeleteCustomer(int id)
         {
             var customerinDB = this.dao.Get(id);
 
             if (customerinDB == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             this.dao.Remove(customerinDB);
             this.dao.SaveChanges();
+
+            return Ok();
         }
     }
 }
