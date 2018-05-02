@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,53 +7,50 @@ using System.Net.Http;
 using System.Web.Http;
 using Vidly.DAO;
 using Vidly.Models;
+using Vidly.Models.API;
 
 namespace Vidly.Controllers.API
 {
     public class CustomersController : BaseApiController<CustomerDao>
     {
-        // GET /api/customers
         [HttpGet]
         [Route("api/customers")]
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDTO> GetCustomers()
         {
             this.dao.Context.Configuration.ProxyCreationEnabled = false;
-            return this.dao.GetDetached();
+            return this.dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
         }
 
-        // GET /api/customers/1
         [HttpGet]
         [Route("api/customers/{id}")]
-        public Customer GetCustomer(int id)
+        public CustomerDTO GetCustomer(int id)
         {
             var customer = this.dao.GetDetached(id);
 
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return customer;
+            return Mapper.Map<Customer, CustomerDTO>(customer);
         }
 
-        // POST /api/customers
         [HttpPost]
         [Route("api/customers")]
-        public Customer CreateCustomer(Customer customer)
+        public CustomerDTO CreateCustomer(CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            customer.MembershipType = null;
-
+            var customer = Mapper.Map<CustomerDTO, Customer>(customerDto);
             this.dao.Add(customer);
             this.dao.SaveChanges();
 
-            return this.dao.GetDetached(customer.Id);
+            customer = this.dao.GetDetached(customer.Id);
+            return Mapper.Map<Customer, CustomerDTO>(customer);
         }
 
-        // PUT /api/customers/1
         [HttpPut]
         [Route("api/customers/{id}")]
-        public void UpdateCustomer(int id, Customer customer)
+        public void UpdateCustomer(int id, CustomerDTO customerDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -62,15 +60,10 @@ namespace Vidly.Controllers.API
             if (customerinDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            customerinDB.Name = customer.Name;
-            customerinDB.BirthDate = customer.BirthDate;
-            customerinDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            customerinDB.MembershipTypeId = customer.MembershipTypeId;
-
+            Mapper.Map<CustomerDTO, Customer>(customerDto, customerinDB);
             this.dao.SaveChanges();
         }
 
-        //DELETE /api/customers/1
         [HttpDelete]
         [Route("api/customers/{id}")]
         public void DeleteCustomer(int id)
