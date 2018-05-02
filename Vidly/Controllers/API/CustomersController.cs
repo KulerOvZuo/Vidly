@@ -13,13 +13,16 @@ namespace Vidly.Controllers.API
     {
         // GET /api/customers
         [HttpGet]
+        [Route("api/customers")]
         public IEnumerable<Customer> GetCustomers()
         {
+            this.dao.Context.Configuration.ProxyCreationEnabled = false;
             return this.dao.GetDetached();
         }
 
         // GET /api/customers/1
         [HttpGet]
+        [Route("api/customers/{id}")]
         public Customer GetCustomer(int id)
         {
             var customer = this.dao.GetDetached(id);
@@ -32,19 +35,23 @@ namespace Vidly.Controllers.API
 
         // POST /api/customers
         [HttpPost]
+        [Route("api/customers")]
         public Customer CreateCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            customer.MembershipType = null;
+
             this.dao.Add(customer);
             this.dao.SaveChanges();
 
-            return customer;
+            return this.dao.GetDetached(customer.Id);
         }
 
         // PUT /api/customers/1
         [HttpPut]
+        [Route("api/customers/{id}")]
         public void UpdateCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
@@ -65,9 +72,10 @@ namespace Vidly.Controllers.API
 
         //DELETE /api/customers/1
         [HttpDelete]
+        [Route("api/customers/{id}")]
         public void DeleteCustomer(int id)
         {
-            var customerinDB = this.dao.GetDetached(id);
+            var customerinDB = this.dao.Get(id);
 
             if (customerinDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);

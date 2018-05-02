@@ -24,11 +24,13 @@ namespace Vidly.Controllers.API
             this.dao = dao;
         }
 
+        [NonAction]
         public virtual void ResetContext()
         {
             this.dao.ResetContext();
         }
 
+        [NonAction]
         protected override void Dispose(bool disposing)
         {
             this.dao.Dispose();
