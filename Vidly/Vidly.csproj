@@ -200,7 +200,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="Models\MappingProfile.cs" />
+    <Compile Include="Controllers\API\MoviesController.cs" />
+    <Compile Include="Models\API\MovieDTO.cs" />
+    <Compile Include="Models\AutoMapper\MovieDTOMap.cs" />
+    <Compile Include="Models\AutoMapper\CustomerDTOMap.cs" />
+    <Compile Include="Models\AutoMapper\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />

@@ -17,9 +17,7 @@ namespace Vidly.Controllers.API
         [Route("api/customers")]
         public IHttpActionResult GetCustomers()
         {
-            this.dao.Context.Configuration.ProxyCreationEnabled = false;
             var customers = this.dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
-
             return Ok(customers);
         }
 

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Web;
 using Vidly.Models.API;
 
-namespace Vidly.Models
+namespace Vidly.Models.AutoMapper
 {
-    public class MappingProfile : Profile
+    public partial class MappingProfile : Profile
     {
-        public MappingProfile()
+        public void InitCustomerDTO()
         {
             this.CreateMap<Customer, CustomerDTO>();
             this.CreateMap<CustomerDTO, Customer>();
