@@ -54,7 +54,6 @@ namespace Vidly.Controllers
                 var returnViewModel = ViewMapper.Map(customer, this.dao.GetDetached<MembershipType>());
                 return View("CustomerForm", returnViewModel);
             }
-
            
             if(customer.Id <= 0)
                 this.dao.Add(customer);

@@ -22,5 +22,10 @@ namespace Vidly.DAO
         {
             DbSet<TEntity>().Add(entity);
         }
+
+        public virtual void Remove(TEntity entity)
+        {
+            DbSet<TEntity>().Remove(entity);
+        }
     }
 }

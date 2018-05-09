@@ -50,6 +50,9 @@ namespace Vidly.DAO
 
         private Movie PopulateWithCustomers(Movie movie)
         {
+            if (movie == null)
+                return movie;
+
             var customerDao = new CustomerDao(this._context);
             IList<Customer> customers = customerDao.GetWithIncludes(true).ToList();
 
