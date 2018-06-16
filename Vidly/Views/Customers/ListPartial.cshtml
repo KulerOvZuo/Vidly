@@ -1,40 +1,13 @@
-﻿@model IEnumerable<Vidly.Models.Customer>
-
-@if (Model.Any())
-{
-    <table id="customers" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Customers</th>
-                <th>Membership type</th>
-                <th>Discount Rate</th>
-                <th>Rented movies</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Model)
-            {
-            <tr>
-                <td>
-                    @Html.ActionLink(linkText: customer.Name,
-               actionName: "details",
-               controllerName: "customers",
-               routeValues: new { id = customer.Id },
-               htmlAttributes: null)
-                </td>
-                <td>@customer.MembershipType.Name</td>
-                <td>@customer.MembershipType.DiscountRate %</td>
-                <td>@customer.Movies2Customers.Count</td>
-                <td>
-                    <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No customers</p>
-}
+﻿<table id="customers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Customers</th>
+            <th>Membership type</th>
+            <th>Discount Rate</th>
+            <th>Rented movies</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

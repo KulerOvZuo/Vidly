@@ -202,6 +202,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\API\MoviesController.cs" />
     <Compile Include="Models\API\MovieDTO.cs" />
+    <Compile Include="Models\AutoMapper\MembershipTypeDTOMap.cs" />
     <Compile Include="Models\AutoMapper\MovieDTOMap.cs" />
     <Compile Include="Models\AutoMapper\CustomerDTOMap.cs" />
     <Compile Include="Models\AutoMapper\MappingProfile.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\API\CustomerDTO.cs" />
     <Compile Include="Models\GenreType.cs" />
+    <Compile Include="Models\MembershipTypeDTO.cs" />
     <Compile Include="Models\Movies2Customers.cs" />
     <Compile Include="Utils\Extentions\DatetimeExtentions.cs" />
     <Compile Include="Utils\Validation\Min18YearsIfAMember.cs" />

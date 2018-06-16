@@ -1,6 +1,4 @@
-﻿@model Vidly.ViewModels.CustomersViewModel
-
-@{
+﻿@{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,7 +9,7 @@
                routeValues: null,
                htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
 
-@Html.Partial("ListPartial", Model.Customers)
+@Html.Partial("ListPartial")
 
 @section scripts
 {
