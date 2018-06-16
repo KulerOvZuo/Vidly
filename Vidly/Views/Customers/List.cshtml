@@ -9,7 +9,14 @@
                actionName: "new",
                controllerName: "customers",
                routeValues: null,
-               htmlAttributes: new { @type = "button", @class="btn btn-primary"})
+               htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
 
 @Html.Partial("ListPartial", Model.Customers)
+
+@section scripts
+{
+   @Html.Partial("ListPartialJs");
+}
+
+
 
