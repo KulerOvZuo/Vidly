@@ -1,6 +1,8 @@
 ﻿<script type='text/javascript'>
     $(document).ready(function () {
-        $("#customers .js-delete").on("click", function () {
+        $("#customers").DataTable();
+
+        $("#customers").on("click", ".js-delete", function () {
             var button = $(this);
 
             bootbox.confirm("Are you shure, your want to delete?", function (result) {
