@@ -1,17 +1,19 @@
 ﻿<script type='text/javascript'>
     $(document).ready(function () {
         $("#customers .js-delete").on("click", function () {
-            if (confirm("Are you shure, your want to delete?")) {
-                var button = $(this);
+            var button = $(this);
 
-                $.ajax({
-                    url: "/api/customers/" + button.attr("data-customer-id"),
-                    method: "DELETE",
-                    success: function () {
-                        button.parents("tr").remove();
-                    }
-                });
-            }
+            bootbox.confirm("Are you shure, your want to delete?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/api/customers/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
         });
     });
 </script>
