@@ -17,7 +17,10 @@ namespace Vidly.Controllers
         {
             var moviesView = ViewMapper.Map(this.dao.GetDetached());
 
-            return View(moviesView);
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("List", moviesView);
+
+            return View("AnonymousList", moviesView);
         }
 
         [HttpGet]
@@ -29,10 +32,16 @@ namespace Vidly.Controllers
             if (movie == null)
                 return HttpNotFound();
 
-            return View(ViewMapper.Map(movie, movie.Customers));
+            var viewModel = ViewMapper.Map(movie, movie.Customers);
+
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("Details", viewModel);
+
+            return View("AnonymousDetails", viewModel);
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         [Route("movies/new")]
         public ActionResult New()
         {
@@ -43,6 +52,7 @@ namespace Vidly.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         [Route("movies/save")]
         public ActionResult Save(MovieModelViewForm viewModel)
         {
@@ -75,6 +85,7 @@ namespace Vidly.Controllers
 
         [HttpGet]
         [Route("movies/edit/{id}")]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var movie = this.dao.GetDetached(id);
