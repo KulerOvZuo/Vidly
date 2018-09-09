@@ -23,6 +23,8 @@ namespace Vidly.Models.API
         [Min18YearsIfAMember]
         public Nullable<DateTime> BirthDate { get; set; }
         
-        public byte MembershipTypeId { get; set; }
+        public MembershipTypeDTO MembershipType { get; set; }
+
+        public int MoviesCount { get; set; }
     }
 }

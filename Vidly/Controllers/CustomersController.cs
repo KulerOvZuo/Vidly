@@ -16,9 +16,7 @@ namespace Vidly.Controllers
         [Route("customers")]
         public ActionResult List()
         {
-            var customersView = ViewMapper.Map(dao.GetDetached());
-
-            return View(customersView);
+            return View();
         }
 
         [HttpGet]

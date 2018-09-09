@@ -1,0 +1,52 @@
+﻿<script type='text/javascript'>
+    $(document).ready(function () {
+        var table = $("#customers").DataTable({
+            ajax: {
+                url: "/api/customers",
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: "name",
+                    render: function (data, type, customer) {
+                        return "<a href='/customers/details/" + customer.id + "'>" + customer.name + "</a>";
+                    }
+                },
+                {
+                    data: "membershipType.name"
+                },
+                {
+                    data: "membershipType.discountRate",
+                    render: function (data) {
+                        return data + " %";
+                    }
+                },
+                {
+                    data: "moviesCount"
+                },
+                {
+                    data: "id",
+                    render: function (data) {
+                        return "<button data-customer-id=" + data + " class='btn-link js-delete'>Delete</button>";
+                    }
+                }
+            ]
+        });
+
+        $("#customers").on("click", ".js-delete", function () {
+            var button = $(this);
+
+            bootbox.confirm("Are you shure, your want to delete?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/api/customers/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

@@ -11,7 +11,9 @@ namespace Vidly.Models.AutoMapper
     {
         public void InitCustomerDTO()
         {
-            this.CreateMap<Customer, CustomerDTO>();
+            this.CreateMap<Customer, CustomerDTO>()
+                .ForMember(d => d.MoviesCount, s => s.MapFrom(src => src.Movies2Customers.Count));
+         
             this.CreateMap<CustomerDTO, Customer>();
         }
     }
