@@ -5,17 +5,17 @@ using Vidly.Models;
 
 namespace Vidly.Controllers
 {
-    public class BaseController<TDao> : Controller
+    public class BaseDBController<TDao> : Controller
         where TDao : BaseDao<ApplicationDbContext>, new()
     {
         protected TDao dao;
 
-        public BaseController() : base()
+        public BaseDBController() : base()
         {
             this.dao = new TDao();
         }
 
-        public BaseController(TDao dao) : base()
+        public BaseDBController(TDao dao) : base()
         {
             this.dao = dao;
         }

@@ -9,7 +9,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
-    public class MoviesController : BaseController<MoviesDao>
+    public class MoviesController : BaseDBController<MoviesDao>
     {
         [HttpGet]
         [Route("movies")]
