@@ -202,6 +202,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\API\MoviesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Migrations\201809091544162_SeedUsers.cs" />
+    <Compile Include="Migrations\201809091544162_SeedUsers.Designer.cs">
+      <DependentUpon>201809091544162_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\API\MovieDTO.cs" />
     <Compile Include="Models\AutoMapper\MembershipTypeDTOMap.cs" />
     <Compile Include="Models\AutoMapper\MovieDTOMap.cs" />
@@ -592,6 +596,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804281239212_AddNewColumnsToMovie.resx">
       <DependentUpon>201804281239212_AddNewColumnsToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809091544162_SeedUsers.resx">
+      <DependentUpon>201809091544162_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
