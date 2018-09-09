@@ -45,7 +45,8 @@ namespace Vidly.Controllers
         [Route("movies/new")]
         public ActionResult New()
         {
-            var viewModel = ViewMapper.Map(new Movie(), this.dao.GetDetached<GenreType>());
+            var genres = MemoryCache.Data<GenreType>(this.dao);
+            var viewModel = ViewMapper.Map(new Movie(), genres);
 
             return View("MovieForm", viewModel);
         }
@@ -58,7 +59,8 @@ namespace Vidly.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var retViewModel = ViewMapper.Map(viewModel.Movie, this.dao.GetDetached<GenreType>());
+                var genres = MemoryCache.Data<GenreType>(this.dao);
+                var retViewModel = ViewMapper.Map(viewModel.Movie, genres);
                 return View("MovieForm", retViewModel);
             }
 
@@ -93,7 +95,8 @@ namespace Vidly.Controllers
             if (movie == null)
                 return HttpNotFound();
 
-            var viewModel = ViewMapper.Map(movie, this.dao.GetDetached<GenreType>());
+            var genres = MemoryCache.Data<GenreType>(this.dao);
+            var viewModel = ViewMapper.Map(movie, genres);
 
             return View("MovieForm", viewModel);
         }
