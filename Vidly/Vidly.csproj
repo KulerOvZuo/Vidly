@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201809091544162_SeedUsers.Designer.cs">
       <DependentUpon>201809091544162_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.cs" />
+    <Compile Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.Designer.cs">
+      <DependentUpon>201809091615449_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\API\MovieDTO.cs" />
     <Compile Include="Models\AutoMapper\MembershipTypeDTOMap.cs" />
     <Compile Include="Models\AutoMapper\MovieDTOMap.cs" />
@@ -602,6 +606,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809091544162_SeedUsers.resx">
       <DependentUpon>201809091544162_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.resx">
+      <DependentUpon>201809091615449_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
