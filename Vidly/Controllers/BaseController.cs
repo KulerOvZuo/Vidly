@@ -5,30 +5,9 @@ using Vidly.Models;
 
 namespace Vidly.Controllers
 {
-    public class BaseController<TDao> : Controller
-        where TDao : BaseDao<ApplicationDbContext>, new()
+    [Authorize]
+    public class BaseController : Controller
     {
-        protected TDao dao;
-
-        public BaseController() : base()
-        {
-            this.dao = new TDao();
-        }
-
-        public BaseController(TDao dao) : base()
-        {
-            this.dao = dao;
-        }
-
-        public virtual void ResetContext()
-        {
-            this.dao.ResetContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            this.dao.Dispose();
-            base.Dispose(disposing);
-        }
+     
     }
 }

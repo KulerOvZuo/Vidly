@@ -10,7 +10,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
-    public class CustomersController : BaseController<CustomerDao>
+    public class CustomersController : BaseDBController<CustomerDao>
     {
         [HttpGet]
         [Route("customers")]

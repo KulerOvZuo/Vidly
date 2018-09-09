@@ -1,0 +1,23 @@
+﻿@using Vidly.Utils.Extentions;
+@model Vidly.ViewModels.MovieViewModelDetailed
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><i>@Model.Movie.Name</i></h2>
+<ul>
+    @if (@Model.Movie.GenreTypeId.HasValue)
+    {
+        <li>Genre: @Model.Movie.GetGenreTypeName()</li>
+    }
+
+    @if (@Model.Movie.ReleaseDate.HasValue)
+    {
+        <li>Release Date: @Model.Movie.GetReleaseDateToString()</li>
+    }
+
+    <li>Date Added: @Model.Movie.DateAdded.ToStringStandard()</li>
+</ul>
+

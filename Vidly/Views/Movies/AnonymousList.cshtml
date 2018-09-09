@@ -1,0 +1,9 @@
+﻿@model Vidly.ViewModels.MoviesViewModel
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("ListPartial", Model.Movies)
+
