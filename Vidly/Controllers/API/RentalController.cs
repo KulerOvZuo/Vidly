@@ -12,17 +12,14 @@ namespace Vidly.Controllers.API
 {
     public class RentalController : BaseApiController<Movies2CustomersDao>
     {
-        CustomerDao customerDao = new CustomerDao();
-        MoviesDao moviesDao = new MoviesDao();
+        CustomerDao customerDao { get; set; }  = new CustomerDao();
+        MoviesDao moviesDao { get; set; } = new MoviesDao();
 
         [HttpPost]
         public IHttpActionResult CreateNewRentals(NewRentalDTO rental)
-        {
+        {          
             if (rental.MovieIds == null || !rental.MovieIds.Any())
                 return BadRequest($"No movies selected");
-
-            this.dao.Join(customerDao);
-            this.dao.Join(moviesDao);
 
             var customer = customerDao.GetDetached(rental.CustomerId);
             if (customer == null)
@@ -50,8 +47,8 @@ namespace Vidly.Controllers.API
                 MovieId = m
             }).ToList();
 
-            this.dao.AddRange(rentals);
-            this.dao.SaveChanges();
+            this._dao.AddRange(rentals);
+            this._dao.SaveChanges();
 
             return Ok();
         }

@@ -219,6 +219,7 @@
     <Compile Include="Controllers\API\MoviesController.cs" />
     <Compile Include="Controllers\API\RentalController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\Movies2CustomersDao.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Migrations\201809091544162_SeedUsers.cs" />

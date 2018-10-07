@@ -10,7 +10,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.DAO
 {
-    public abstract class BaseDao<TContext> : IDisposable
+    public abstract class BaseDao<TContext> : IDisposable, IDao<TContext>
         where TContext : ApplicationDbContext, new()
     {
         protected TContext _context;
@@ -28,11 +28,12 @@ namespace Vidly.DAO
         public TContext Context
         {
             get => this._context;
+            set => this._context = value;
         }
 
-        public void Join<TDao>(TDao dao) where TDao : BaseDao<TContext>
+        public void JoinWith<TDao>(TDao underlingDao) where TDao : IDao<TContext>
         {
-            dao._context = this._context;
+            underlingDao.Context = this._context;
         }
 
         private void InitializePropertiesContext(TContext context)

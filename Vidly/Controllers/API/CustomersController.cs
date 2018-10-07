@@ -17,7 +17,7 @@ namespace Vidly.Controllers.API
         [Route("api/customers")]
         public IHttpActionResult GetCustomers()
         {
-            var customers = this.dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
+            var customers = this._dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
             return Ok(customers);
         }
 
@@ -25,7 +25,7 @@ namespace Vidly.Controllers.API
         [Route("api/customers/{id}")]
         public IHttpActionResult GetCustomer(int id)
         {
-            var customer = this.dao.GetDetached(id);
+            var customer = this._dao.GetDetached(id);
 
             if (customer == null)
                 return NotFound();
@@ -41,10 +41,10 @@ namespace Vidly.Controllers.API
                 return BadRequest();
 
             var customer = Mapper.Map<CustomerDTO, Customer>(customerDto);
-            this.dao.Add(customer);
-            this.dao.SaveChanges();
+            this._dao.Add(customer);
+            this._dao.SaveChanges();
 
-            customer = this.dao.GetDetached(customer.Id);
+            customer = this._dao.GetDetached(customer.Id);
 
             return Created(new Uri(Request.RequestUri + "/" + customer.Id), 
                 Mapper.Map<Customer, CustomerDTO>(customer));
@@ -57,13 +57,13 @@ namespace Vidly.Controllers.API
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var customerinDB = this.dao.Get(id);
+            var customerinDB = this._dao.Get(id);
 
             if (customerinDB == null)
                 return NotFound();
 
             Mapper.Map<CustomerDTO, Customer>(customerDto, customerinDB);
-            this.dao.SaveChanges();
+            this._dao.SaveChanges();
 
             return Ok();
         }
@@ -72,13 +72,13 @@ namespace Vidly.Controllers.API
         [Route("api/customers/{id}")]
         public IHttpActionResult DeleteCustomer(int id)
         {
-            var customerinDB = this.dao.Get(id);
+            var customerinDB = this._dao.Get(id);
 
             if (customerinDB == null)
                 return NotFound();
 
-            this.dao.Remove(customerinDB);
-            this.dao.SaveChanges();
+            this._dao.Remove(customerinDB);
+            this._dao.SaveChanges();
 
             return Ok();
         }

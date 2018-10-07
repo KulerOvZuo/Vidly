@@ -17,7 +17,7 @@ namespace Vidly.Controllers.API
         [Route("api/Movies")]
         public IHttpActionResult GetMovies()
         {
-            var movies = this.dao.GetDetached().Select(c => Mapper.Map<Movie, MovieDTO>(c));
+            var movies = this._dao.GetDetached().Select(c => Mapper.Map<Movie, MovieDTO>(c));
             return Ok(movies);
         }
 
@@ -25,7 +25,7 @@ namespace Vidly.Controllers.API
         [Route("api/Movies/{id}")]
         public IHttpActionResult GetMovie(int id)
         {
-            var movie = this.dao.GetDetached(id);
+            var movie = this._dao.GetDetached(id);
 
             if (movie == null)
                 return NotFound();
@@ -43,10 +43,10 @@ namespace Vidly.Controllers.API
             var movie = Mapper.Map<MovieDTO, Movie>(MovieDto);
             movie.NumberAvailable = movie.NumberInStock;
 
-            this.dao.Add(movie);
-            this.dao.SaveChanges();
+            this._dao.Add(movie);
+            this._dao.SaveChanges();
 
-            movie = this.dao.GetDetached(movie.Id);
+            movie = this._dao.GetDetached(movie.Id);
 
             return Created(new Uri(Request.RequestUri + "/" + movie.Id), 
                 Mapper.Map<Movie, MovieDTO>(movie));
@@ -59,13 +59,13 @@ namespace Vidly.Controllers.API
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var movieInDB = this.dao.Get(id);
+            var movieInDB = this._dao.Get(id);
 
             if (movieInDB == null)
                 return NotFound();
 
             Mapper.Map<MovieDTO, Movie>(MovieDto, movieInDB);
-            this.dao.SaveChanges();
+            this._dao.SaveChanges();
 
             return Ok();
         }
@@ -74,13 +74,13 @@ namespace Vidly.Controllers.API
         [Route("api/Movies/{id}")]
         public IHttpActionResult DeleteMovie(int id)
         {
-            var movieInDB = this.dao.Get(id);
+            var movieInDB = this._dao.Get(id);
 
             if (movieInDB == null)
                 return NotFound();
 
-            this.dao.Remove(movieInDB);
-            this.dao.SaveChanges();
+            this._dao.Remove(movieInDB);
+            this._dao.SaveChanges();
 
             return Ok();
         }
