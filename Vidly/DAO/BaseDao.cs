@@ -30,6 +30,11 @@ namespace Vidly.DAO
             get => this._context;
         }
 
+        public void Join<TDao>(TDao dao) where TDao : BaseDao<TContext>
+        {
+            dao._context = this._context;
+        }
+
         private void InitializePropertiesContext(TContext context)
         {
             context.Configuration.LazyLoadingEnabled = false;

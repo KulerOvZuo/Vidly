@@ -14,9 +14,15 @@ namespace Vidly.DAO
         public ExBaseDao() : base() { }
         public ExBaseDao(ApplicationDbContext context) : base(context) { }
 
+        public abstract IList<TEntity> Get();
         public abstract IList<TEntity> GetDetached();
         public abstract TEntity GetDetached(int id);
         public abstract TEntity Get(int id);
+
+        public virtual void AddRange(IEnumerable<TEntity> entities)
+        {
+            DbSet<TEntity>().AddRange(entities);
+        }
 
         public virtual void Add(TEntity entity)
         {
