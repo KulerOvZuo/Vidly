@@ -36,6 +36,9 @@ namespace Vidly.Models
         [Display(Name = "Number in stock")]
         [Range(0,100)]
         public virtual int NumberInStock { get; set; }
+
+        [Display(Name = "Number available")]
+        public virtual int NumberAvailable { get; set; } = 0;
         #endregion
 
         #region NotMapped

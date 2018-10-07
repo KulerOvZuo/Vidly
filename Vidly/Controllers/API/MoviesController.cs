@@ -41,6 +41,8 @@ namespace Vidly.Controllers.API
                 return BadRequest();
 
             var movie = Mapper.Map<MovieDTO, Movie>(MovieDto);
+            movie.NumberAvailable = movie.NumberInStock;
+
             this.dao.Add(movie);
             this.dao.SaveChanges();
 

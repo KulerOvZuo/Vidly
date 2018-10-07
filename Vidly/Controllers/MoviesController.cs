@@ -78,6 +78,8 @@ namespace Vidly.Controllers
                 movieInDB.ReleaseDate = movie.ReleaseDate ;
                 movieInDB.GenreTypeId = movie.GenreTypeId;
                 movieInDB.NumberInStock = movie.NumberInStock;
+
+                movieInDB.NumberAvailable = movieInDB.NumberInStock;
             }
 
             this.dao.SaveChanges();

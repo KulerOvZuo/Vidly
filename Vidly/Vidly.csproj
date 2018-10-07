@@ -217,7 +217,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\API\MoviesController.cs" />
+    <Compile Include="Controllers\API\RentalController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="DAO\Movies2CustomersDao.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Migrations\201809091544162_SeedUsers.cs" />
     <Compile Include="Migrations\201809091544162_SeedUsers.Designer.cs">
@@ -227,7 +229,20 @@
     <Compile Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.Designer.cs">
       <DependentUpon>201809091615449_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810071240311_Movies2Customers_addDates.cs" />
+    <Compile Include="Migrations\201810071240311_Movies2Customers_addDates.Designer.cs">
+      <DependentUpon>201810071240311_Movies2Customers_addDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810071326088_Movies2Customers_ProperIndentity.cs" />
+    <Compile Include="Migrations\201810071326088_Movies2Customers_ProperIndentity.Designer.cs">
+      <DependentUpon>201810071326088_Movies2Customers_ProperIndentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810071329589_Movies_numberAvailable.cs" />
+    <Compile Include="Migrations\201810071329589_Movies_numberAvailable.Designer.cs">
+      <DependentUpon>201810071329589_Movies_numberAvailable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\API\MovieDTO.cs" />
+    <Compile Include="Models\API\RentalDTO.cs" />
     <Compile Include="Models\AutoMapper\MembershipTypeDTOMap.cs" />
     <Compile Include="Models\AutoMapper\MovieDTOMap.cs" />
     <Compile Include="Models\AutoMapper\CustomerDTOMap.cs" />
@@ -627,6 +642,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.resx">
       <DependentUpon>201809091615449_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071240311_Movies2Customers_addDates.resx">
+      <DependentUpon>201810071240311_Movies2Customers_addDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071326088_Movies2Customers_ProperIndentity.resx">
+      <DependentUpon>201810071326088_Movies2Customers_ProperIndentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071329589_Movies_numberAvailable.resx">
+      <DependentUpon>201810071329589_Movies_numberAvailable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
