@@ -18,6 +18,9 @@ namespace Vidly.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateNewRentals(NewRentalDTO rental)
         {
+            if (rental.MovieIds == null || !rental.MovieIds.Any())
+                return BadRequest($"No movies selected");
+
             this.dao.Join(customerDao);
             this.dao.Join(moviesDao);
 
@@ -31,9 +34,9 @@ namespace Vidly.Controllers.API
                 var dbMovie = movies.SingleOrDefault(m => m.Id == movieId);
 
                 if (dbMovie == null)
-                    return BadRequest($"Invalid Movie Id: {movieId}");
+                    return BadRequest($"Invalid MovieId: {movieId}");
 
-                if(dbMovie.NumberAvailable <= 20)
+                if(dbMovie.NumberAvailable <= 0)
                     return BadRequest($"Movie not available: '{dbMovie.Name}'");
 
                 dbMovie.NumberAvailable--;
