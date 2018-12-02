@@ -16,6 +16,7 @@ namespace Vidly.Controllers.API
         MoviesDao moviesDao { get; set; } = new MoviesDao();
 
         [HttpPost]
+        [Route("api/NewRentals")]
         public IHttpActionResult CreateNewRentals(NewRentalDTO rental)
         {          
             if (rental.MovieIds == null || !rental.MovieIds.Any())
@@ -25,8 +26,9 @@ namespace Vidly.Controllers.API
             if (customer == null)
                 return BadRequest($"Invalid CustomerId: {rental.CustomerId}");
 
-            var movies = moviesDao.Get().Where(m => rental.MovieIds.Contains(m.Id)).ToList();
-            foreach(var movieId in rental.MovieIds)
+            var movieIds = rental.MovieIds.Distinct();
+            var movies = moviesDao.Get().Where(m => movieIds.Contains(m.Id)).ToList();
+            foreach(var movieId in movieIds)
             {
                 var dbMovie = movies.SingleOrDefault(m => m.Id == movieId);
 
@@ -40,7 +42,7 @@ namespace Vidly.Controllers.API
             }
 
             var dateRented = DateTime.Now;
-            IList<Movies2Customers> rentals = rental.MovieIds.Select(m => new Movies2Customers
+            IList<Movies2Customers> rentals = movieIds.Select(m => new Movies2Customers
             {
                 CustomerId = rental.CustomerId,
                 DateRented = dateRented,
