@@ -20,7 +20,7 @@ namespace Vidly.Controllers.API
             var queryable = this._dao.GetDetached().AsQueryable();
 
             if (!string.IsNullOrEmpty(query))
-                queryable = queryable.Where(c => c.Name.Contains(query));
+                queryable = queryable.Where(c => c.Name.ToUpper().Contains(query.ToUpper()));
 
             var customers = queryable.Select(c => Mapper.Map<Customer, CustomerDTO>(c));
             return Ok(customers);

@@ -22,7 +22,7 @@ namespace Vidly.Controllers.API
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(query))
-                queryable = queryable.Where(c => c.Name.Contains(query));
+                queryable = queryable.Where(c => c.Name.ToUpper().Contains(query.ToUpper()));
 
             var movies = queryable.Select(m => Mapper.Map<Movie, MovieDTO>(m));
             return Ok(movies);
