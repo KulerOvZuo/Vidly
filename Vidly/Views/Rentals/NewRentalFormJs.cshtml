@@ -63,9 +63,13 @@
                 data: vm
             })
             .done(function () {
-                console.log("done");
-            }).fail(function () {
-
+                toastr.success("Rentals recorded.");
+            }).fail(function (e) {
+                let errorMessage = undefined;
+                if (e != undefined && e.responseJSON != undefined) {
+                    errorMessage = e.responseJSON["message"];
+                }
+                toastr.error(errorMessage, "Something went wrong");
             });
         });
     });

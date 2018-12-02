@@ -18,7 +18,10 @@ namespace Vidly.Controllers.API
         [HttpPost]
         [Route("api/NewRentals")]
         public IHttpActionResult CreateNewRentals(NewRentalDTO rental)
-        {          
+        {
+            if (rental == null)
+                return BadRequest("Empty request");
+
             if (rental.MovieIds == null || !rental.MovieIds.Any())
                 return BadRequest($"No movies selected");
 
