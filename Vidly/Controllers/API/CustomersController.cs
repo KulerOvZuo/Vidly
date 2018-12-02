@@ -15,9 +15,14 @@ namespace Vidly.Controllers.API
     {
         [HttpGet]
         [Route("api/customers")]
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers(string query = null)
         {
-            var customers = this._dao.GetDetached().Select(c => Mapper.Map<Customer, CustomerDTO>(c));
+            var queryable = this._dao.GetDetached().AsQueryable();
+
+            if (!string.IsNullOrEmpty(query))
+                queryable = queryable.Where(c => c.Name.Contains(query));
+
+            var customers = queryable.Select(c => Mapper.Map<Customer, CustomerDTO>(c));
             return Ok(customers);
         }
 

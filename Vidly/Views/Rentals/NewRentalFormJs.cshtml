@@ -19,11 +19,11 @@
             minLength: 3,
             highlight: true
         }, {
-            name: 'customers',
-            display: 'name',
-            source: customers
-        }).on("typeahead:select", function (e, customer) {
-            vm.customerId = customer.id;
+                name: 'customers',
+                display: 'name',
+                source: customers
+            }).on("typeahead:select", function (e, customer) {
+                vm.customerId = customer.id;
             });
 
 
@@ -39,14 +39,20 @@
         $('#movie.typeahead').typeahead({
             minLength: 3,
             highlight: true
-        }, {
-            name: 'movies',
-            display: 'name',
-            source: movies
-        }).on("typeahead:select", function (e, movie) {
-            $("#movies").append("<li>" + movie.name + "</li>");
-            $("#movie").typeahead("val", "");
-            vm.movieIds.push(movie.id);
-        });
+        },
+            {
+                name: 'movies',
+                display: 'name',
+                source: movies
+            }).on("typeahead:select", function (e, movie) {
+                if (movie.id in vm.movieIds) {
+                    ;
+                }
+                else {
+                    $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+                    vm.movieIds.push(movie.id);
+                }
+                $("#movie").typeahead("val", "");
+            });
     });
 </script>
