@@ -3,6 +3,7 @@
 <script type='text/javascript'>
     $(document).ready(function () {
         var vm = {
+            customerId: number = 0,
             movieIds: []
         };
 
@@ -64,6 +65,11 @@
             })
             .done(function () {
                 toastr.success("Rentals recorded.");
+                $("#movies").empty();
+                $("#movie").typeahead("val", "");
+                $("#customer").typeahead("val", "");
+                vm.movieIds = [];
+                vm.customerId = 0;
             }).fail(function (e) {
                 let errorMessage = undefined;
                 if (e != undefined && e.responseJSON != undefined) {
