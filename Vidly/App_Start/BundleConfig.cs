@@ -31,9 +31,9 @@ namespace Vidly
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/datatables/css/datatables.bootstrap.css",
-                      "~/Content/Site.css",
                       "~/Content/typeahead.css",
-                      "~/Content/toastr.css"
+                      "~/Content/toastr.css",
+                      "~/Content/Site.css"
                       ));
         }
     }
