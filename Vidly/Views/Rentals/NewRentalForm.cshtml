@@ -8,15 +8,19 @@
 <h2>New Rental Form</h2>
 
 <form>
-    <div id="customer" class="form-group">
+    <div class="form-group">
         <label>Customer</label>
-        <input type="text" value="" class="form-control typeahead" />
+        <input id="customer" type="text" value="" class="form-control typeahead" />
     </div>
 
     <div class="form-group">
         <label>Movie</label>
-        <input type="text" value="" class="form-control typeahead" />
+        <input id="movie" type="text" value="" class="form-control typeahead" />
     </div>
+
+    <ul id="movies" class="list-group">
+
+    </ul>
 
     <button class="btn btn-primary">
         Submit
