@@ -1,0 +1,29 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "New Rental Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Rental Form</h2>
+
+<form>
+    <div id="customer" class="form-group">
+        <label>Customer</label>
+        <input type="text" value="" class="form-control typeahead" />
+    </div>
+
+    <div class="form-group">
+        <label>Movie</label>
+        <input type="text" value="" class="form-control typeahead" />
+    </div>
+
+    <button class="btn btn-primary">
+        Submit
+    </button>
+</form>
+
+@section scripts
+{
+    @Html.Partial("NewRentalFormJs");
+}
