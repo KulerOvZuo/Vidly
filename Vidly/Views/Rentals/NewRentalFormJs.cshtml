@@ -1,0 +1,104 @@
+﻿@model Vidly.Models.Customer
+
+@Scripts.Render("~/bundles/jqueryval");
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        var vm = {
+            customerId: number = 0,
+            movieIds: []
+        };
+
+        var customers = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/api/customers?query=%QUERY',
+                wildcard: '%QUERY'
+            }
+        });
+
+        $('#customer.typeahead').typeahead({
+            minLength: 3,
+            highlight: true
+        }, {
+            name: 'customers',
+            display: 'name',
+            source: customers
+        })
+        .on("typeahead:select", function (e, customer) {
+            vm.customerId = customer.id;
+        })
+        .on("typeahead:change", function (e, customer) {
+            vm.customerId = customer.id;
+        });
+
+        $.validator.setDefaults({
+            ignore: ':hidden, .tt-hint'
+        });
+
+        $.validator.addMethod("validCustomer", function () {
+            return vm.customerId && vm.customerId !== 0;
+        }, "Please select a valid customer");
+
+        var movies = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/api/movies?query=%QUERY',
+                wildcard: '%QUERY'
+            }
+        });
+
+        $('#movie.typeahead').typeahead({
+            minLength: 3,
+            highlight: true
+        }, {
+            name: 'movies',
+            display: 'name',
+            source: movies
+        }).on("typeahead:select", function (e, movie) {
+            if (movie.id in vm.movieIds) {
+                ;
+            }
+            else {
+                $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+                vm.movieIds.push(movie.id);
+            }
+            $("#movie").typeahead("val", "");
+        });
+
+        $.validator.addMethod("validateMovies", function () {
+            return vm.movieIds && vm.movieIds.length > 0;
+        }, "Please select at least one movie");
+
+        var validator = $("#newRental").validate({
+            submitHandler: function (form, event) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: "/api/newRentals",
+                    method: "post",
+                    data: vm
+                })
+                .done(function () {
+                    toastr.success("Rentals recorded.");
+                    $("#movies").empty();
+                    $("#movie").typeahead("val", "");
+                    $("#customer").typeahead("val", "");
+                    vm.movieIds = [];
+                    vm.customerId = 0;
+                    validator.resetForm();
+                }).fail(function (e) {
+                    let errorMessage = undefined;
+                    if (e != undefined && e.responseJSON != undefined) {
+                        errorMessage = e.responseJSON["message"];
+                    }
+                    toastr.error(errorMessage, "Something went wrong");
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

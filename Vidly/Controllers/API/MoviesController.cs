@@ -15,9 +15,16 @@ namespace Vidly.Controllers.API
     {
         [HttpGet]
         [Route("api/Movies")]
-        public IHttpActionResult GetMovies()
+        public IHttpActionResult GetMovies(string query = null)
         {
-            var movies = this._dao.GetDetached().Select(c => Mapper.Map<Movie, MovieDTO>(c));
+            var queryable = this._dao.GetDetached()
+                .Where(m => m.NumberAvailable > 0)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(query))
+                queryable = queryable.Where(c => c.Name.ToUpper().Contains(query.ToUpper()));
+
+            var movies = queryable.Select(m => Mapper.Map<Movie, MovieDTO>(m));
             return Ok(movies);
         }
 
