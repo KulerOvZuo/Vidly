@@ -61,5 +61,13 @@ namespace Vidly.DAO
 
             return customer;
         }
+
+        public override IList<Customer> Get()
+        {
+            var ret = GetWithIncludes(false)
+                .ToList();
+
+            return ret;
+        }
     }
 }

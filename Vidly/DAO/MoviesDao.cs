@@ -20,6 +20,13 @@ namespace Vidly.DAO
             return ret;
         }
 
+        public override IList<Movie> Get()
+        {
+            var ret = GetWithIncludes(false)
+                .ToList();
+
+            return ret;
+        }
         public override Movie Get(int id)
         {
             var ret = GetWithIncludes(false)

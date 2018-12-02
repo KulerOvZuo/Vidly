@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "56a5cbb0-c6e0-42fa-af1a-d875a43eab04",
+		"name": "Vidly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api/customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:53673/api/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53673",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/customers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"Name\": \"Jeo Smith\",\n    \"IsSubscribedToNewsletter\": true,\n    \"BirthDate\": \"1985-01-01T00:00:00\",\n    \"MembershipTypeId\": 3,\n},"
+				},
+				"url": {
+					"raw": "http://localhost:53673/api/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53673",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/rental/CreateNewRentals",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"CustomerId\": 23,\n    \"MovieIds\": [1, 2]\n},"
+				},
+				"url": {
+					"raw": "http://localhost:53673/api/rental/CreateNewRentals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "53673",
+					"path": [
+						"api",
+						"rental",
+						"CreateNewRentals"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -217,7 +217,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\API\MoviesController.cs" />
+    <Compile Include="Controllers\API\RentalController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\RentalsController.cs" />
+    <Compile Include="DAO\IDao.cs" />
+    <Compile Include="DAO\Movies2CustomersDao.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Migrations\201809091544162_SeedUsers.cs" />
     <Compile Include="Migrations\201809091544162_SeedUsers.Designer.cs">
@@ -227,7 +231,20 @@
     <Compile Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.Designer.cs">
       <DependentUpon>201809091615449_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810071240311_Movies2Customers_addDates.cs" />
+    <Compile Include="Migrations\201810071240311_Movies2Customers_addDates.Designer.cs">
+      <DependentUpon>201810071240311_Movies2Customers_addDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810071326088_Movies2Customers_ProperIndentity.cs" />
+    <Compile Include="Migrations\201810071326088_Movies2Customers_ProperIndentity.Designer.cs">
+      <DependentUpon>201810071326088_Movies2Customers_ProperIndentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810071329589_Movies_numberAvailable.cs" />
+    <Compile Include="Migrations\201810071329589_Movies_numberAvailable.Designer.cs">
+      <DependentUpon>201810071329589_Movies_numberAvailable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\API\MovieDTO.cs" />
+    <Compile Include="Models\API\RentalDTO.cs" />
     <Compile Include="Models\AutoMapper\MembershipTypeDTOMap.cs" />
     <Compile Include="Models\AutoMapper\MovieDTOMap.cs" />
     <Compile Include="Models\AutoMapper\CustomerDTOMap.cs" />
@@ -434,10 +451,15 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -447,6 +469,8 @@
     </Content>
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -522,6 +546,12 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -568,6 +598,8 @@
     <Content Include="Views\Customers\ListPartialJs.cshtml" />
     <Content Include="Views\Movies\AnonymousList.cshtml" />
     <Content Include="Views\Movies\AnonymousDetails.cshtml" />
+    <Content Include="Views\Rentals\NewRentalForm.cshtml" />
+    <Content Include="Views\Rentals\NewRentalFormJs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -627,6 +659,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809091615449_AddDrivingLicenseToApplicationUser.resx">
       <DependentUpon>201809091615449_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071240311_Movies2Customers_addDates.resx">
+      <DependentUpon>201810071240311_Movies2Customers_addDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071326088_Movies2Customers_ProperIndentity.resx">
+      <DependentUpon>201810071326088_Movies2Customers_ProperIndentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071329589_Movies_numberAvailable.resx">
+      <DependentUpon>201810071329589_Movies_numberAvailable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

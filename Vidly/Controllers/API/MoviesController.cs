@@ -15,9 +15,16 @@ namespace Vidly.Controllers.API
     {
         [HttpGet]
         [Route("api/Movies")]
-        public IHttpActionResult GetMovies()
+        public IHttpActionResult GetMovies(string query = null)
         {
-            var movies = this.dao.GetDetached().Select(c => Mapper.Map<Movie, MovieDTO>(c));
+            var queryable = this._dao.GetDetached()
+                .Where(m => m.NumberAvailable > 0)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(query))
+                queryable = queryable.Where(c => c.Name.ToUpper().Contains(query.ToUpper()));
+
+            var movies = queryable.Select(m => Mapper.Map<Movie, MovieDTO>(m));
             return Ok(movies);
         }
 
@@ -25,7 +32,7 @@ namespace Vidly.Controllers.API
         [Route("api/Movies/{id}")]
         public IHttpActionResult GetMovie(int id)
         {
-            var movie = this.dao.GetDetached(id);
+            var movie = this._dao.GetDetached(id);
 
             if (movie == null)
                 return NotFound();
@@ -41,10 +48,12 @@ namespace Vidly.Controllers.API
                 return BadRequest();
 
             var movie = Mapper.Map<MovieDTO, Movie>(MovieDto);
-            this.dao.Add(movie);
-            this.dao.SaveChanges();
+            movie.NumberAvailable = movie.NumberInStock;
 
-            movie = this.dao.GetDetached(movie.Id);
+            this._dao.Add(movie);
+            this._dao.SaveChanges();
+
+            movie = this._dao.GetDetached(movie.Id);
 
             return Created(new Uri(Request.RequestUri + "/" + movie.Id), 
                 Mapper.Map<Movie, MovieDTO>(movie));
@@ -57,13 +66,13 @@ namespace Vidly.Controllers.API
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var movieInDB = this.dao.Get(id);
+            var movieInDB = this._dao.Get(id);
 
             if (movieInDB == null)
                 return NotFound();
 
             Mapper.Map<MovieDTO, Movie>(MovieDto, movieInDB);
-            this.dao.SaveChanges();
+            this._dao.SaveChanges();
 
             return Ok();
         }
@@ -72,13 +81,13 @@ namespace Vidly.Controllers.API
         [Route("api/Movies/{id}")]
         public IHttpActionResult DeleteMovie(int id)
         {
-            var movieInDB = this.dao.Get(id);
+            var movieInDB = this._dao.Get(id);
 
             if (movieInDB == null)
                 return NotFound();
 
-            this.dao.Remove(movieInDB);
-            this.dao.SaveChanges();
+            this._dao.Remove(movieInDB);
+            this._dao.SaveChanges();
 
             return Ok();
         }
